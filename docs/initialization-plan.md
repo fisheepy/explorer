@@ -12,21 +12,18 @@
 
 ## 3. 技术选型
 - **前端框架**：React + Vite
-- **3D 引擎**：Three.js（后续接入）
+- **3D 引擎**：Three.js
 - **数据格式**：GeoJSON + 主题点位 JSON
 - **状态管理**：先用 React state，复杂后再引入 Zustand
 
-## 4. 目录规划
-- `src/`
-  - `app/`: 页面与应用骨架
-  - `features/globe/`: 地球场景、相机与交互
-  - `features/themes/`: 主题过滤与图层逻辑
-  - `features/country-info/`: 国家信息卡片
-  - `data/`: GeoJSON 与主题数据
-  - `shared/`: 复用组件、工具函数、常量
+## 4. 目录规划（当前实现）
+- `src/App.jsx`: Sprint 2 页面编排和状态说明
+- `src/GlobeScene.jsx`: Three.js 场景与 controls
+- `src/main.jsx`: React 入口
+- `src/styles.css`: 页面与地球容器样式
 
 ## 5. 迭代节奏
-- **Sprint 1（当前）**：完成项目初始化与路线说明。
-- **Sprint 2**：实现 Three.js 地球场景 + 基础 controls。
-- **Sprint 3**：接入国家数据 + 主题图层 demo。
-- **Sprint 4**：探索任务与移动端优化。
+- ✅ **Sprint 1**：完成项目初始化与路线说明。
+- ✅ **Sprint 2**：实现 Three.js 地球场景 + 基础 controls。
+- 🔜 **Sprint 3**：接入国家数据 + 主题图层 demo。
+- 🔜 **Sprint 4**：探索任务与移动端优化。
