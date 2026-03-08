@@ -6,6 +6,7 @@
 - ✅ Sprint 1：完成初始化脚手架（React + Vite）
 - ✅ Sprint 2：完成 Three.js 地球场景 + 基础 OrbitControls
 - ✅ Sprint 2.5：补充国家边界轮廓与国家信息面板（地图信息）
+- ✅ 地图可视化增强：在球体上绘制世界纹理图层（海洋、经纬网、国家区域）
 - 🔜 Sprint 3：接入真实国家 GeoJSON 和主题图层 demo
 
 ## 启动项目
@@ -13,6 +14,11 @@
 npm install
 npm run dev
 ```
+
+## 当前地图展示方式
+- 使用经纬度数据在 Canvas 上绘制世界纹理（海洋底色 + 经纬网 + 国家区域填充）
+- 将该 Canvas 作为 `CanvasTexture` 贴到 Three.js 球体材质 `map`
+- 额外叠加国家边界线与可点击热点点位，实现选中高亮和信息联动
 
 ## 已实现能力
 - 3D 地球球体与基础光照

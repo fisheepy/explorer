@@ -14,10 +14,11 @@ function App() {
     <main className="layout">
       <section className="hero">
         <div>
-          <p className="eyebrow">Sprint 2.5</p>
-          <h1>World Theme Explorer · 地图信息增强版</h1>
+          <p className="eyebrow">地图展示 Demo</p>
+          <h1>World Theme Explorer · 如何展示地图</h1>
           <p className="lead">
-            现在不再只是一个球体：已叠加国家边界轮廓和国家热点点位。点击左侧国家卡片或地球上的热点点，右侧会展示国家信息。
+            通过“经纬度 -> 纹理贴图 + 国家边界线 + 热点点位”三层叠加，把地图真实显示在 3D 地球上。
+            点击国家按钮或地球热点可高亮并联动右侧国家信息。
           </p>
         </div>
       </section>
@@ -53,7 +54,7 @@ function App() {
           <p><strong>首都：</strong>{selectedCountry.capital}</p>
           <p><strong>人口：</strong>{selectedCountry.population}</p>
           <p><strong>特色：</strong>{selectedCountry.theme}</p>
-          <p className="tip">提示：拖拽可旋转地球，滚轮可缩放，点击地球白色点位可切换国家。</p>
+          <p className="tip">提示：拖拽可旋转地球，滚轮可缩放，点击地球上的点位可切换国家。</p>
         </aside>
       </section>
     </main>

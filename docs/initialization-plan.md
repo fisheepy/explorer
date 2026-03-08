@@ -17,12 +17,18 @@
 - **状态管理**：先用 React state，复杂后再引入 Zustand
 
 ## 4. 当前实现
-- `src/GlobeScene.jsx`：Three.js 场景、地球球体、边界线渲染、热点拾取、OrbitControls
+- `src/GlobeScene.jsx`：Three.js 场景、地球球体、世界纹理贴图、边界线渲染、热点拾取、OrbitControls
 - `src/data/countries.js`：示例国家边界与信息（用于地图信息展示）
 - `src/App.jsx`：国家列表、地球视图、国家信息面板联动
 - `src/styles.css`：三栏布局和响应式样式
 
-## 5. 迭代节奏
+## 5. 地图展示方案
+1. 经纬度坐标投影到 2D 纹理（Canvas），绘制海洋底图与经纬网。
+2. 将国家边界数据绘制为区域填充，选中态用高亮色。
+3. 通过 `CanvasTexture` 贴图到球体，形成“可见地图”。
+4. 叠加 3D 边界线 + 热点点位，提供交互选择。
+
+## 6. 迭代节奏
 - ✅ **Sprint 1**：完成项目初始化与路线说明。
 - ✅ **Sprint 2**：实现 Three.js 地球场景 + 基础 controls。
 - ✅ **Sprint 2.5**：补充国家边界轮廓与国家信息联动。
