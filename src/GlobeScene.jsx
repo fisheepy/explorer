@@ -10,7 +10,17 @@ const TEXTURES = {
   stars: 'https://threejs.org/examples/textures/galaxy_starfield.png',
 };
 
-function GlobeScene() {
+function latLonToVector3(lat, lon, radius) {
+  const phi = (90 - lat) * (Math.PI / 180);
+  const theta = (lon + 180) * (Math.PI / 180);
+  return new THREE.Vector3(
+    -(radius * Math.sin(phi) * Math.cos(theta)),
+    radius * Math.cos(phi),
+    radius * Math.sin(phi) * Math.sin(theta)
+  );
+}
+
+function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -44,8 +54,9 @@ function GlobeScene() {
     );
     scene.add(starfield);
 
+    const earthRadius = 1.45;
     const earth = new THREE.Mesh(
-      new THREE.SphereGeometry(1.45, 128, 128),
+      new THREE.SphereGeometry(earthRadius, 128, 128),
       new THREE.MeshPhongMaterial({
         map: earthMap,
         bumpMap,
@@ -102,14 +113,43 @@ function GlobeScene() {
 
     const ambientLight = new THREE.AmbientLight(0x6b8ec5, 0.28);
     scene.add(ambientLight);
-
     const sunLight = new THREE.DirectionalLight(0xffffff, 1.8);
     sunLight.position.set(8, 2.5, 5);
     scene.add(sunLight);
-
     const rimLight = new THREE.DirectionalLight(0x5ca2ff, 0.7);
     rimLight.position.set(-4, -2, -5);
     scene.add(rimLight);
+
+    const overlayGroup = new THREE.Group();
+    scene.add(overlayGroup);
+
+    if (distributionPoints.length > 0) {
+      const positions = new Float32Array(distributionPoints.length * 3);
+      distributionPoints.forEach((point, index) => {
+        const v = latLonToVector3(point.lat, point.lon, earthRadius + 0.03);
+        positions[index * 3] = v.x;
+        positions[index * 3 + 1] = v.y;
+        positions[index * 3 + 2] = v.z;
+      });
+
+      const pointsGeometry = new THREE.BufferGeometry();
+      pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      const pointsMaterial = new THREE.PointsMaterial({
+        color: '#f59e0b',
+        size: 0.03,
+        sizeAttenuation: true,
+        transparent: true,
+        opacity: 0.85,
+      });
+      overlayGroup.add(new THREE.Points(pointsGeometry, pointsMaterial));
+    }
+
+    if (rangePolygon && rangePolygon.length > 1) {
+      const rangePoints = rangePolygon.map((point) => latLonToVector3(point.lat, point.lon, earthRadius + 0.035));
+      const rangeGeometry = new THREE.BufferGeometry().setFromPoints(rangePoints);
+      const rangeMaterial = new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.95 });
+      overlayGroup.add(new THREE.Line(rangeGeometry, rangeMaterial));
+    }
 
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
@@ -159,9 +199,9 @@ function GlobeScene() {
         container.removeChild(renderer.domElement);
       }
     };
-  }, []);
+  }, [distributionPoints, rangePolygon]);
 
-  return <div className="globe-scene" aria-label="太空视角地球" ref={containerRef} />;
+  return <div className="globe-scene" aria-label="太空视角地球+分布叠加" ref={containerRef} />;
 }
 
 export default GlobeScene;
