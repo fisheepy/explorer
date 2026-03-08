@@ -13,24 +13,26 @@
 ## 3. 技术选型
 - **前端框架**：React + Vite
 - **3D 引擎**：Three.js
-- **数据格式**：GeoJSON + 主题点位 JSON
+- **公开地理底图**：OpenStreetMap tiles
 - **状态管理**：先用 React state，复杂后再引入 Zustand
 
 ## 4. 当前实现
-- `src/GlobeScene.jsx`：Three.js 场景、地球球体、世界纹理贴图、边界线渲染、热点拾取、OrbitControls
-- `src/data/countries.js`：示例国家边界与信息（用于地图信息展示）
+- `src/GlobeScene.jsx`：Three.js 场景、OSM 底图纹理拼接、边界线渲染、热点拾取、OrbitControls
+- `src/data/countries.js`：主题演示国家数据（国家信息与热点中心点）
 - `src/App.jsx`：国家列表、地球视图、国家信息面板联动
 - `src/styles.css`：三栏布局和响应式样式
 
-## 5. 地图展示方案
-1. 经纬度坐标投影到 2D 纹理（Canvas），绘制海洋底图与经纬网。
-2. 将国家边界数据绘制为区域填充，选中态用高亮色。
-3. 通过 `CanvasTexture` 贴图到球体，形成“可见地图”。
-4. 叠加 3D 边界线 + 热点点位，提供交互选择。
+## 5. 地图展示方案（公开数据）
+1. 在客户端加载 OpenStreetMap 瓦片（z=3）并拼接到 Canvas。
+2. 将 Canvas 转为 `CanvasTexture`，贴到球体材质 `map`。
+3. 叠加主题国家边界线和热点点位作为交互层。
+4. 选中国家时同时高亮边界和底图区域。
+5. 网络失败时回退到简化纹理，保证场景可用。
+6. 通过“拖拽阈值”区分旋转与点击，避免误切换。
 
 ## 6. 迭代节奏
 - ✅ **Sprint 1**：完成项目初始化与路线说明。
 - ✅ **Sprint 2**：实现 Three.js 地球场景 + 基础 controls。
-- ✅ **Sprint 2.5**：补充国家边界轮廓与国家信息联动。
-- 🔜 **Sprint 3**：接入真实国家 GeoJSON + 主题图层数据集。
+- ✅ **Sprint 2.5**：补充国家信息联动并升级公开地图数据细节。
+- 🔜 **Sprint 3**：接入更高精度国家属性 + 主题图层数据集。
 - 🔜 **Sprint 4**：探索任务与移动端优化。
