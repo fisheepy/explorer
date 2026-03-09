@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
-import { riskLegend, speciesFocusMap, speciesIconMap, speciesList } from './data/species';
+import { riskLegend, speciesFocusMap, speciesIconMap, speciesList, speciesNativeRanges } from './data/species';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 
 function SpeciesCard({ species, active, onSelect }) {
@@ -19,6 +19,21 @@ function SpeciesCard({ species, active, onSelect }) {
       <p className="species-category">{species.category}</p>
       <p className="species-intro">{species.intro}</p>
     </article>
+  );
+}
+
+
+function filterPointsByNativeRange(points, nativeRange) {
+  if (!nativeRange) {
+    return points;
+  }
+
+  return points.filter(
+    (point) =>
+      point.lat >= nativeRange.minLat &&
+      point.lat <= nativeRange.maxLat &&
+      point.lon >= nativeRange.minLon &&
+      point.lon <= nativeRange.maxLon
   );
 }
 
@@ -68,9 +83,12 @@ function App() {
 
     fetchGbifOccurrences(selectedSpecies.latinName, controller.signal)
       .then((payload) => {
-        const points = payload.points.slice(0, 320);
+        const rawPoints = payload.points.slice(0, 320);
+        const nativeRange = speciesNativeRanges[selectedSpecies.id];
+        const points = filterPointsByNativeRange(rawPoints, nativeRange);
+
         if (points.length < 20) {
-          throw new Error('GBIF points not enough');
+          throw new Error('GBIF points not enough after native-range filtering');
         }
 
         const clusters = clusterDistributionPoints(points, 6, 150);

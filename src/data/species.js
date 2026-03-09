@@ -348,3 +348,15 @@ export const speciesIconMap = {
   orangutan: '🦧',
   vaquita: '🐬',
 };
+
+
+export const speciesNativeRanges = {
+  'giant-panda': { minLat: 20, maxLat: 45, minLon: 95, maxLon: 125 },
+  'red-panda': { minLat: 23, maxLat: 33, minLon: 80, maxLon: 102 },
+  'axolotl': { minLat: 18, maxLat: 21, minLon: -101, maxLon: -97 },
+  'komodo-dragon': { minLat: -11, maxLat: -7, minLon: 117, maxLon: 122 },
+  vaquita: { minLat: 28, maxLat: 33, minLon: -116, maxLon: -111 },
+  orangutan: { minLat: -5, maxLat: 7, minLon: 95, maxLon: 121 },
+  koala: { minLat: -39, maxLat: -22, minLon: 112, maxLon: 154 },
+  'amur-tiger': { minLat: 40, maxLat: 55, minLon: 120, maxLon: 145 },
+};
