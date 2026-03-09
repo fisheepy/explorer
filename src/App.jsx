@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
-import { riskLegend, speciesFocusMap, speciesList } from './data/species';
-import { buildFallbackPoints, buildRangePolygon, fetchGbifOccurrences } from './services/gbif';
+import { riskLegend, speciesFocusMap, speciesIconMap, speciesList } from './data/species';
+import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 
 function SpeciesCard({ species, active, onSelect }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
@@ -27,7 +27,7 @@ function App() {
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
-  const [distribution, setDistribution] = useState({ points: [], range: null, source: 'loading', gbifTaxonKey: null });
+  const [distribution, setDistribution] = useState({ points: [], clusters: [], range: null, source: 'loading', gbifTaxonKey: null });
 
   const categories = useMemo(
     () => ['ALL', ...new Set(speciesList.map((species) => species.category.split('·')[0].trim()))],
@@ -59,7 +59,7 @@ function App() {
 
   useEffect(() => {
     if (!selectedSpecies) {
-      setDistribution({ points: [], range: null, source: 'empty', gbifTaxonKey: null });
+      setDistribution({ points: [], clusters: [], range: null, source: 'empty', gbifTaxonKey: null });
       return;
     }
 
@@ -68,12 +68,15 @@ function App() {
 
     fetchGbifOccurrences(selectedSpecies.latinName, controller.signal)
       .then((payload) => {
-        const points = payload.points.slice(0, 260);
+        const points = payload.points.slice(0, 320);
         if (points.length < 20) {
           throw new Error('GBIF points not enough');
         }
+
+        const clusters = clusterDistributionPoints(points, 6, 150);
         setDistribution({
           points,
+          clusters,
           range: buildRangePolygon(points),
           source: 'gbif',
           gbifTaxonKey: payload.gbifTaxonKey,
@@ -81,8 +84,10 @@ function App() {
       })
       .catch(() => {
         const fallback = buildFallbackPoints(speciesFocusMap[selectedSpecies.id]);
+        const clusters = clusterDistributionPoints(fallback, 5, 80);
         setDistribution({
           points: fallback,
+          clusters,
           range: buildRangePolygon(fallback),
           source: 'fallback',
           gbifTaxonKey: null,
@@ -96,17 +101,17 @@ function App() {
     distribution.source === 'loading'
       ? '正在加载 GBIF 分布点位...'
       : distribution.source === 'gbif'
-        ? `来源：GBIF（点位 ${distribution.points.length}）${distribution.gbifTaxonKey ? ` · taxonKey ${distribution.gbifTaxonKey}` : ''}`
+        ? `来源：GBIF（原始点 ${distribution.points.length}，聚簇图标 ${distribution.clusters.length}）${distribution.gbifTaxonKey ? ` · taxonKey ${distribution.gbifTaxonKey}` : ''}`
         : distribution.source === 'fallback'
-          ? `来源：本地 fallback（点位 ${distribution.points.length}）`
+          ? `来源：本地 fallback（原始点 ${distribution.points.length}，聚簇图标 ${distribution.clusters.length}）`
           : '暂无分布数据';
 
   return (
     <main className="space-page">
       <header className="space-header">
-        <p className="badge">World Theme Explorer · MVP Step 2</p>
-        <h1>分布点位/范围联动 + 筛选 + GBIF/IUCN</h1>
-        <p>筛选物种后，地球会联动展示分布点位（GBIF）和范围轮廓；风险等级采用 IUCN 色卡。</p>
+        <p className="badge">World Theme Explorer · MVP Step 2.1</p>
+        <h1>动物图标分布 + 聚簇联动</h1>
+        <p>每个物种用专属图标替代点阵；分布过于离散时会自动聚簇显示。</p>
       </header>
 
       <section className="filter-row">
@@ -136,7 +141,11 @@ function App() {
       </section>
 
       <section className="globe-wrap">
-        <GlobeScene distributionPoints={distribution.points} rangePolygon={distribution.range} />
+        <GlobeScene
+          distributionClusters={distribution.clusters}
+          rangePolygon={distribution.range}
+          speciesIcon={speciesIconMap[selectedSpecies?.id] ?? '📍'}
+        />
       </section>
 
       <section className="overlay-panel" aria-label="species cards">

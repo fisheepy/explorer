@@ -20,7 +20,34 @@ function latLonToVector3(lat, lon, radius) {
   );
 }
 
-function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
+function createIconTexture(icon) {
+  const size = 128;
+  const canvas = document.createElement('canvas');
+  canvas.width = size;
+  canvas.height = size;
+  const ctx = canvas.getContext('2d');
+
+  ctx.clearRect(0, 0, size, size);
+  ctx.beginPath();
+  ctx.arc(size / 2, size / 2, 44, 0, Math.PI * 2);
+  ctx.fillStyle = 'rgba(2, 9, 28, 0.78)';
+  ctx.fill();
+  ctx.lineWidth = 4;
+  ctx.strokeStyle = 'rgba(245, 158, 11, 0.88)';
+  ctx.stroke();
+
+  ctx.font = '62px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
+  ctx.textAlign = 'center';
+  ctx.textBaseline = 'middle';
+  ctx.fillText(icon, size / 2, size / 2 + 2);
+
+  const texture = new THREE.CanvasTexture(canvas);
+  texture.colorSpace = THREE.SRGBColorSpace;
+  texture.needsUpdate = true;
+  return texture;
+}
+
+function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIcon = '📍' }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -111,8 +138,7 @@ function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
     );
     scene.add(atmosphere);
 
-    const ambientLight = new THREE.AmbientLight(0x6b8ec5, 0.28);
-    scene.add(ambientLight);
+    scene.add(new THREE.AmbientLight(0x6b8ec5, 0.28));
     const sunLight = new THREE.DirectionalLight(0xffffff, 1.8);
     sunLight.position.set(8, 2.5, 5);
     scene.add(sunLight);
@@ -123,26 +149,16 @@ function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
     const overlayGroup = new THREE.Group();
     earth.add(overlayGroup);
 
-    if (distributionPoints.length > 0) {
-      const positions = new Float32Array(distributionPoints.length * 3);
-      distributionPoints.forEach((point, index) => {
-        const v = latLonToVector3(point.lat, point.lon, earthRadius + 0.03);
-        positions[index * 3] = v.x;
-        positions[index * 3 + 1] = v.y;
-        positions[index * 3 + 2] = v.z;
-      });
+    const iconTexture = createIconTexture(speciesIcon);
+    const spriteMaterial = new THREE.SpriteMaterial({ map: iconTexture, transparent: true, depthWrite: false });
 
-      const pointsGeometry = new THREE.BufferGeometry();
-      pointsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-      const pointsMaterial = new THREE.PointsMaterial({
-        color: '#f59e0b',
-        size: 0.03,
-        sizeAttenuation: true,
-        transparent: true,
-        opacity: 0.85,
-      });
-      overlayGroup.add(new THREE.Points(pointsGeometry, pointsMaterial));
-    }
+    distributionClusters.forEach((cluster) => {
+      const sprite = new THREE.Sprite(spriteMaterial.clone());
+      sprite.position.copy(latLonToVector3(cluster.lat, cluster.lon, earthRadius + 0.06));
+      const scale = Math.min(0.23, 0.09 + Math.log2(cluster.count + 1) * 0.028);
+      sprite.scale.set(scale, scale, 1);
+      overlayGroup.add(sprite);
+    });
 
     if (rangePolygon && rangePolygon.length > 1) {
       const rangePoints = rangePolygon.map((point) => latLonToVector3(point.lat, point.lon, earthRadius + 0.035));
@@ -184,7 +200,7 @@ function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
       cancelAnimationFrame(frameId);
       controls.dispose();
 
-      [earthMap, bumpMap, specMap, cloudMap, starMap].forEach((texture) => texture.dispose());
+      [earthMap, bumpMap, specMap, cloudMap, starMap, iconTexture].forEach((texture) => texture.dispose());
 
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();
@@ -199,9 +215,9 @@ function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
         container.removeChild(renderer.domElement);
       }
     };
-  }, [distributionPoints, rangePolygon]);
+  }, [distributionClusters, rangePolygon, speciesIcon]);
 
-  return <div className="globe-scene" aria-label="太空视角地球+分布叠加" ref={containerRef} />;
+  return <div className="globe-scene" aria-label="太空视角地球+聚簇图标叠加" ref={containerRef} />;
 }
 
 export default GlobeScene;

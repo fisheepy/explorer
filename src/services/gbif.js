@@ -85,3 +85,40 @@ export function buildFallbackPoints(focus) {
     };
   });
 }
+
+
+export function clusterDistributionPoints(points, thresholdDeg = 6, maxClusters = 140) {
+  if (!Array.isArray(points) || points.length === 0) {
+    return [];
+  }
+
+  const clusters = [];
+
+  points.forEach((point) => {
+    let target = null;
+    let minDist = Infinity;
+
+    clusters.forEach((cluster) => {
+      const dLat = point.lat - cluster.lat;
+      const dLon = point.lon - cluster.lon;
+      const dist = Math.hypot(dLat, dLon);
+      if (dist < thresholdDeg && dist < minDist) {
+        minDist = dist;
+        target = cluster;
+      }
+    });
+
+    if (!target) {
+      clusters.push({ lat: point.lat, lon: point.lon, count: 1 });
+      return;
+    }
+
+    const nextCount = target.count + 1;
+    target.lat = (target.lat * target.count + point.lat) / nextCount;
+    target.lon = (target.lon * target.count + point.lon) / nextCount;
+    target.count = nextCount;
+  });
+
+  clusters.sort((a, b) => b.count - a.count);
+  return clusters.slice(0, maxClusters);
+}
