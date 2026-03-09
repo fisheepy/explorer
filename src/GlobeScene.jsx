@@ -121,7 +121,7 @@ function GlobeScene({ distributionPoints = [], rangePolygon = null }) {
     scene.add(rimLight);
 
     const overlayGroup = new THREE.Group();
-    scene.add(overlayGroup);
+    earth.add(overlayGroup);
 
     if (distributionPoints.length > 0) {
       const positions = new Float32Array(distributionPoints.length * 3);
