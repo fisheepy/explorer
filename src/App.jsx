@@ -1,13 +1,13 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import GlobeScene from './GlobeScene';
 import { riskLegend, speciesFocusMap, speciesIconMap, speciesList, speciesNativeRanges } from './data/species';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 
-function SpeciesCard({ species, active, onSelect }) {
+function SpeciesCard({ species }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
 
   return (
-    <article className={`species-card ${active ? 'active' : ''}`} onClick={() => onSelect(species.id)}>
+    <article className="species-card carousel-card">
       <div className="species-card-top">
         <p className="species-zh">{species.nameZh}</p>
         <span className="risk-badge" style={{ backgroundColor: risk.color }}>
@@ -21,7 +21,6 @@ function SpeciesCard({ species, active, onSelect }) {
     </article>
   );
 }
-
 
 function filterPointsByNativeRange(points, nativeRange) {
   if (!nativeRange) {
@@ -37,12 +36,21 @@ function filterPointsByNativeRange(points, nativeRange) {
   );
 }
 
+function clampIndex(value, size) {
+  if (size <= 0) {
+    return 0;
+  }
+  return Math.max(0, Math.min(size - 1, value));
+}
+
 function App() {
   const [selectedId, setSelectedId] = useState(speciesList[0].id);
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [distribution, setDistribution] = useState({ points: [], clusters: [], range: null, source: 'loading', gbifTaxonKey: null });
+  const [touchStartX, setTouchStartX] = useState(null);
+  const carouselRef = useRef(null);
 
   const categories = useMemo(
     () => ['ALL', ...new Set(speciesList.map((species) => species.category.split('·')[0].trim()))],
@@ -62,6 +70,11 @@ function App() {
       return hitKeyword && hitRisk && hitCategory;
     });
   }, [search, riskFilter, categoryFilter]);
+
+  const selectedIndex = useMemo(
+    () => Math.max(0, filteredSpecies.findIndex((species) => species.id === selectedId)),
+    [filteredSpecies, selectedId]
+  );
 
   useEffect(() => {
     if (!filteredSpecies.some((species) => species.id === selectedId) && filteredSpecies.length > 0) {
@@ -119,17 +132,56 @@ function App() {
     distribution.source === 'loading'
       ? '正在加载 GBIF 分布点位...'
       : distribution.source === 'gbif'
-        ? `来源：GBIF（原始点 ${distribution.points.length}，聚簇图标 ${distribution.clusters.length}）${distribution.gbifTaxonKey ? ` · taxonKey ${distribution.gbifTaxonKey}` : ''}`
+        ? `来源：GBIF（原始点 ${distribution.points.length}，聚簇图标 ${distribution.clusters.length}）`
         : distribution.source === 'fallback'
           ? `来源：本地 fallback（原始点 ${distribution.points.length}，聚簇图标 ${distribution.clusters.length}）`
           : '暂无分布数据';
 
+  const changeByOffset = (offset) => {
+    if (filteredSpecies.length === 0) {
+      return;
+    }
+
+    const nextIndex = clampIndex(selectedIndex + offset, filteredSpecies.length);
+    setSelectedId(filteredSpecies[nextIndex].id);
+  };
+
+  const onTouchStart = (event) => {
+    setTouchStartX(event.changedTouches[0].clientX);
+  };
+
+  const onTouchEnd = (event) => {
+    if (touchStartX == null) {
+      return;
+    }
+
+    const delta = event.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(delta) < 30) {
+      return;
+    }
+
+    changeByOffset(delta < 0 ? 1 : -1);
+    setTouchStartX(null);
+  };
+
+  useEffect(() => {
+    const container = carouselRef.current;
+    if (!container) {
+      return;
+    }
+
+    const active = container.querySelector('[data-active="true"]');
+    if (active) {
+      active.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+  }, [selectedId, filteredSpecies]);
+
   return (
     <main className="space-page">
       <header className="space-header">
-        <p className="badge">World Theme Explorer · MVP Step 2.1</p>
-        <h1>动物图标分布 + 聚簇联动</h1>
-        <p>每个物种用专属图标替代点阵；分布过于离散时会自动聚簇显示。</p>
+        <p className="badge">World Theme Explorer · iPad Mode</p>
+        <h1>左右滑动动物卡片切换</h1>
+        <p>保留地球视图，物种区域改成 iPad 友好的左右滑动卡片交互。</p>
       </header>
 
       <section className="filter-row">
@@ -172,15 +224,32 @@ function App() {
           <p>{statusText}</p>
         </div>
 
-        <div className="species-grid">
-          {filteredSpecies.map((species) => (
-            <SpeciesCard
-              key={species.id}
-              species={species}
-              active={selectedSpecies?.id === species.id}
-              onSelect={setSelectedId}
-            />
-          ))}
+        <div className="carousel-actions">
+          <button type="button" onClick={() => changeByOffset(-1)}>
+            ← 上一个
+          </button>
+          <p>
+            {selectedIndex + 1} / {Math.max(filteredSpecies.length, 1)}
+          </p>
+          <button type="button" onClick={() => changeByOffset(1)}>
+            下一个 →
+          </button>
+        </div>
+
+        <div ref={carouselRef} className="species-carousel" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
+          {filteredSpecies.map((species) => {
+            const active = species.id === selectedSpecies?.id;
+            return (
+              <div
+                key={species.id}
+                className={`species-carousel-item ${active ? 'active' : ''}`}
+                data-active={active ? 'true' : 'false'}
+                onClick={() => setSelectedId(species.id)}
+              >
+                <SpeciesCard species={species} />
+              </div>
+            );
+          })}
         </div>
       </section>
     </main>

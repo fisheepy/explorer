@@ -112,12 +112,49 @@ h1 {
 }
 
 .species-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-  gap: 0.7rem;
-  max-height: 37vh;
-  overflow: auto;
-  padding-right: 0.2rem;
+  display: none;
+}
+
+.carousel-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.carousel-actions p {
+  margin: 0;
+  color: #b5caf0;
+  font-size: 0.85rem;
+}
+
+.carousel-actions button {
+  border: 1px solid rgba(153, 182, 237, 0.3);
+  background: rgba(11, 22, 56, 0.72);
+  color: #e6efff;
+  border-radius: 10px;
+  padding: 0.36rem 0.7rem;
+  cursor: pointer;
+}
+
+.species-carousel {
+  display: flex;
+  gap: 0.8rem;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding-bottom: 0.2rem;
+}
+
+.species-carousel-item {
+  flex: 0 0 min(78vw, 420px);
+  scroll-snap-align: center;
+  opacity: 0.65;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.species-carousel-item.active {
+  opacity: 1;
 }
 
 .species-card {
@@ -132,6 +169,10 @@ h1 {
 .species-card.active {
   border-color: rgba(245, 158, 11, 0.9);
   transform: translateY(-1px);
+}
+
+.carousel-card {
+  min-height: 188px;
 }
 
 .species-card-top {
@@ -204,8 +245,11 @@ h1 {
     height: 50vh;
   }
 
-  .species-grid {
-    grid-template-columns: 1fr;
-    max-height: 43vh;
+  .species-carousel-item {
+    flex-basis: 84vw;
+  }
+
+  .carousel-actions button {
+    font-size: 0.8rem;
   }
 }
