@@ -20,6 +20,15 @@ function latLonToVector3(lat, lon, radius) {
   );
 }
 
+function cameraPositionForFocus(focus, distance = 4.2) {
+  if (!focus) {
+    return new THREE.Vector3(0, 0.2, distance);
+  }
+
+  const dir = latLonToVector3(focus.lat, focus.lon, 1).normalize();
+  return dir.multiplyScalar(distance);
+}
+
 function createIconTexture(icon) {
   const size = 128;
   const canvas = document.createElement('canvas');
@@ -47,7 +56,7 @@ function createIconTexture(icon) {
   return texture;
 }
 
-function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIcon = '📍' }) {
+function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIcon = '📍', autoFocusTarget = null }) {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -58,6 +67,7 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
+    const targetCameraPos = cameraPositionForFocus(autoFocusTarget, 4.2);
     camera.position.set(0, 0.2, 4.2);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
@@ -168,6 +178,7 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
     }
 
     const controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 0, 0);
     controls.enableDamping = true;
     controls.dampingFactor = 0.04;
     controls.enablePan = false;
@@ -176,10 +187,18 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
     controls.rotateSpeed = 0.45;
 
     let frameId;
+    let focusBlend = 0;
+
     const animate = () => {
       earth.rotation.y += 0.00075;
       clouds.rotation.y += 0.00105;
       starfield.rotation.y += 0.00008;
+
+      if (focusBlend < 1) {
+        focusBlend = Math.min(1, focusBlend + 0.045);
+        camera.position.lerp(targetCameraPos, focusBlend);
+      }
+
       controls.update();
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(animate);
@@ -215,7 +234,7 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
         container.removeChild(renderer.domElement);
       }
     };
-  }, [distributionClusters, rangePolygon, speciesIcon]);
+  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget]);
 
   return <div className="globe-scene" aria-label="太空视角地球+聚簇图标叠加" ref={containerRef} />;
 }

@@ -38,12 +38,25 @@ function clampIndex(value, size) {
   return Math.max(0, Math.min(size - 1, value));
 }
 
+function getPrimaryFocus(clusters, fallbackFocus) {
+  if (!clusters || clusters.length === 0) {
+    return fallbackFocus ?? null;
+  }
+
+  const main = [...clusters].sort((a, b) => b.count - a.count)[0];
+  if (!main) {
+    return fallbackFocus ?? null;
+  }
+
+  return { lat: main.lat, lon: main.lon, strength: main.count };
+}
+
 function App() {
   const [selectedId, setSelectedId] = useState(speciesList[0].id);
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
-  const [distribution, setDistribution] = useState({ points: [], clusters: [], range: null, source: 'loading', gbifTaxonKey: null });
+  const [distribution, setDistribution] = useState({ points: [], clusters: [], range: null, focus: null, source: 'loading', gbifTaxonKey: null });
   const [touchStartX, setTouchStartX] = useState(null);
 
   const categories = useMemo(
@@ -82,7 +95,7 @@ function App() {
 
   useEffect(() => {
     if (!selectedSpecies) {
-      setDistribution({ points: [], clusters: [], range: null, source: 'empty', gbifTaxonKey: null });
+      setDistribution({ points: [], clusters: [], range: null, focus: null, source: 'empty', gbifTaxonKey: null });
       return;
     }
 
@@ -101,6 +114,7 @@ function App() {
           points,
           clusters,
           range: buildRangePolygon(points),
+          focus: getPrimaryFocus(clusters, speciesFocusMap[selectedSpecies.id]),
           source: 'gbif',
           gbifTaxonKey: payload.gbifTaxonKey,
         });
@@ -112,6 +126,7 @@ function App() {
           points: fallback,
           clusters,
           range: buildRangePolygon(fallback),
+          focus: getPrimaryFocus(clusters, speciesFocusMap[selectedSpecies.id]),
           source: 'fallback',
           gbifTaxonKey: null,
         });
@@ -180,6 +195,7 @@ function App() {
           distributionClusters={distribution.clusters}
           rangePolygon={distribution.range}
           speciesIcon={speciesIconMap[selectedSpecies?.id] ?? '📍'}
+          autoFocusTarget={distribution.focus}
         />
       </section>
 
