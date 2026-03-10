@@ -138,8 +138,9 @@ h1 {
   cursor: pointer;
 }
 
+/* legacy horizontal list (kept hidden in compact mode) */
 .species-carousel {
-  display: flex;
+  display: none;
   gap: 0.8rem;
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -251,5 +252,57 @@ h1 {
 
   .carousel-actions button {
     font-size: 0.8rem;
+  }
+}
+
+
+.overlay-title-row.compact {
+  margin-bottom: 0.5rem;
+}
+
+.species-carousel-compact {
+  display: grid;
+  grid-template-columns: minmax(80px, 0.8fr) minmax(260px, 1.7fr) minmax(80px, 0.8fr);
+  gap: 0.7rem;
+  align-items: stretch;
+}
+
+.center-current .carousel-card {
+  min-height: 206px;
+}
+
+.side-preview {
+  opacity: 0.45;
+  transform: scale(0.94);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  cursor: pointer;
+}
+
+.side-preview:hover {
+  opacity: 0.7;
+}
+
+.side-preview .carousel-card {
+  min-height: 206px;
+}
+
+.carousel-card.faded {
+  filter: saturate(0.75);
+}
+
+.empty-preview {
+  height: 206px;
+  border-radius: 12px;
+  border: 1px dashed rgba(153, 182, 237, 0.25);
+  background: rgba(12, 24, 58, 0.2);
+}
+
+@media (max-width: 920px) {
+  .species-carousel-compact {
+    grid-template-columns: 1fr;
+  }
+
+  .side-preview {
+    display: none;
   }
 }
