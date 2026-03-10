@@ -39,15 +39,9 @@ function clampIndex(value, size) {
 }
 
 function getPrimaryFocus(clusters, fallbackFocus) {
-  if (!clusters || clusters.length === 0) {
-    return fallbackFocus ?? null;
-  }
-
+  if (!clusters || clusters.length === 0) return fallbackFocus ?? null;
   const main = [...clusters].sort((a, b) => b.count - a.count)[0];
-  if (!main) {
-    return fallbackFocus ?? null;
-  }
-
+  if (!main) return fallbackFocus ?? null;
   return { lat: main.lat, lon: main.lon, strength: main.count };
 }
 
@@ -56,8 +50,18 @@ function App() {
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
-  const [distribution, setDistribution] = useState({ points: [], clusters: [], range: null, focus: null, source: 'loading', gbifTaxonKey: null });
   const [touchStartX, setTouchStartX] = useState(null);
+  const [isSwitching, setIsSwitching] = useState(false);
+
+  const [distribution, setDistribution] = useState({
+    points: [],
+    clusters: [],
+    range: null,
+    focus: null,
+    source: 'loading',
+    gbifTaxonKey: null,
+    speciesId: speciesList[0].id,
+  });
 
   const categories = useMemo(
     () => ['ALL', ...new Set(speciesList.map((species) => species.category.split('·')[0].trim()))],
@@ -95,12 +99,27 @@ function App() {
 
   useEffect(() => {
     if (!selectedSpecies) {
-      setDistribution({ points: [], clusters: [], range: null, focus: null, source: 'empty', gbifTaxonKey: null });
+      setDistribution({ points: [], clusters: [], range: null, focus: null, source: 'empty', gbifTaxonKey: null, speciesId: null });
+      setIsSwitching(false);
       return;
     }
 
     const controller = new AbortController();
-    setDistribution((current) => ({ ...current, source: 'loading' }));
+    let timeoutId;
+    let cancelled = false;
+    const startTime = performance.now();
+
+    setIsSwitching(true);
+
+    const commitDistribution = (nextDistribution) => {
+      const elapsed = performance.now() - startTime;
+      const bufferMs = Math.max(220 - elapsed, 0);
+      timeoutId = window.setTimeout(() => {
+        if (cancelled) return;
+        setDistribution(nextDistribution);
+        setIsSwitching(false);
+      }, bufferMs);
+    };
 
     fetchGbifOccurrences(selectedSpecies.latinName, controller.signal)
       .then((payload) => {
@@ -110,29 +129,35 @@ function App() {
         if (points.length < 20) throw new Error('GBIF points not enough after native-range filtering');
 
         const clusters = clusterDistributionPoints(points, 6, 150);
-        setDistribution({
+        commitDistribution({
           points,
           clusters,
           range: buildRangePolygon(points),
           focus: getPrimaryFocus(clusters, speciesFocusMap[selectedSpecies.id]),
           source: 'gbif',
           gbifTaxonKey: payload.gbifTaxonKey,
+          speciesId: selectedSpecies.id,
         });
       })
       .catch(() => {
         const fallback = buildFallbackPoints(speciesFocusMap[selectedSpecies.id]);
         const clusters = clusterDistributionPoints(fallback, 5, 80);
-        setDistribution({
+        commitDistribution({
           points: fallback,
           clusters,
           range: buildRangePolygon(fallback),
           focus: getPrimaryFocus(clusters, speciesFocusMap[selectedSpecies.id]),
           source: 'fallback',
           gbifTaxonKey: null,
+          speciesId: selectedSpecies.id,
         });
       });
 
-    return () => controller.abort();
+    return () => {
+      cancelled = true;
+      controller.abort();
+      if (timeoutId) window.clearTimeout(timeoutId);
+    };
   }, [selectedSpecies]);
 
   const changeByOffset = (offset) => {
@@ -150,20 +175,22 @@ function App() {
   };
 
   const statusText =
-    distribution.source === 'loading'
-      ? '正在加载 GBIF 分布点位...'
+    isSwitching
+      ? '切换中：正在缓冲新物种分布...'
       : distribution.source === 'gbif'
         ? `GBIF：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
         : distribution.source === 'fallback'
           ? `fallback：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
           : '暂无分布数据';
 
+  const visualSpeciesId = distribution.speciesId ?? selectedSpecies?.id;
+
   return (
     <main className="space-page">
       <header className="space-header">
         <p className="badge">World Theme Explorer · iPad Compact</p>
         <h1>单卡主视图 + 前后淡化预览</h1>
-        <p>只显示当前有效卡片，左右显示淡化预览，界面更紧凑。</p>
+        <p>只显示当前有效卡片，左右显示淡化预览，切换时增加缓冲避免图标与点位错位。</p>
       </header>
 
       <section className="filter-row">
@@ -194,7 +221,7 @@ function App() {
         <GlobeScene
           distributionClusters={distribution.clusters}
           rangePolygon={distribution.range}
-          speciesIcon={speciesIconMap[selectedSpecies?.id] ?? '📍'}
+          speciesIcon={speciesIconMap[visualSpeciesId] ?? '📍'}
           autoFocusTarget={distribution.focus}
         />
       </section>
