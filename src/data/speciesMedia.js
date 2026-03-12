@@ -1,4 +1,4 @@
-import { speciesList } from './species';
+import { speciesList } from './species.js';
 
 const defaultMediaEntries = Object.fromEntries(
   speciesList.map((species) => [
@@ -58,7 +58,7 @@ const seededMediaEntries = {
     },
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/0/0f/Anim1754_-_Flickr_-_NOAA_Photo_Library.jpg',
+        url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Anim1754%20-%20Flickr%20-%20NOAA%20Photo%20Library.jpg',
         source: 'wikimedia',
         author: 'NOAA Photo Library',
         license: 'Public Domain',
@@ -75,12 +75,19 @@ const seededMediaEntries = {
     },
     images: [
       {
-        url: 'https://upload.wikimedia.org/wikipedia/commons/3/30/Sumatran_Orangutan_%28Pongo_abelii%29.jpg',
+        url: 'https://commons.wikimedia.org/wiki/Special:FilePath/SUMATRAN%20ORANGUTAN.jpg',
         source: 'wikimedia',
         author: 'Rizki Agung Pratama',
         license: 'CC BY-SA 4.0',
         attribution: 'Wikimedia Commons / Rizki Agung Pratama',
         isPrimary: true,
+      },
+      {
+        url: 'https://commons.wikimedia.org/wiki/Special:FilePath/Sumatra%20Orangutan.jpg',
+        source: 'wikimedia',
+        author: 'William Warby',
+        license: 'CC BY 2.0',
+        attribution: 'Wikimedia Commons / William Warby',
       },
     ],
   },

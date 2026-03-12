@@ -44,16 +44,19 @@ function GlobeScene({
   rangePolygon = null,
   speciesIcon = 'o',
   autoFocusTarget = null,
-  previewImage = null,
+  previewImages = [],
   previewTitle = '',
 }) {
   const containerRef = useRef(null);
   const markerLayerRef = useRef(null);
   const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+  const [previewIndex, setPreviewIndex] = useState(0);
+  const activePreviewImage = previewImages[previewIndex] ?? null;
 
   useEffect(() => {
     setIsPreviewVisible(false);
-  }, [previewImage?.url]);
+    setPreviewIndex(0);
+  }, [previewImages]);
 
   useEffect(() => {
     const container = containerRef.current;
@@ -175,7 +178,7 @@ function GlobeScene({
       const anchor = latLonToVector3(cluster.lat, cluster.lon, earthRadius + 0.05);
       const scale = Math.min(1.28, 0.92 + Math.log2(cluster.count + 1) * 0.14);
       const button = createMarkerButton(cluster, () => {
-        if (previewImage?.url) {
+        if (previewImages.length > 0) {
           setIsPreviewVisible(true);
         }
       });
@@ -269,19 +272,31 @@ function GlobeScene({
         container.removeChild(renderer.domElement);
       }
     };
-  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget, previewImage?.url, isPreviewVisible]);
+  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget, previewImages, isPreviewVisible]);
 
   return (
     <div className="globe-scene" aria-label="Space view globe with species markers" ref={containerRef}>
       <div className="globe-marker-layer" ref={markerLayerRef} aria-hidden="true" />
-      {previewImage?.url ? (
+      {activePreviewImage?.url ? (
         <button
           type="button"
           className={`globe-image-preview ${isPreviewVisible ? 'visible' : ''}`}
           onClick={() => setIsPreviewVisible(false)}
           aria-label={`Hide ${previewTitle || 'species'} preview`}
         >
-          <img src={previewImage.url} alt={`${previewTitle || 'Species'} preview`} className="globe-image-preview-photo" />
+          <img
+            src={activePreviewImage.url}
+            alt={`${previewTitle || 'Species'} preview`}
+            className="globe-image-preview-photo"
+            onError={() => {
+              if (previewIndex < previewImages.length - 1) {
+                setPreviewIndex((current) => current + 1);
+                return;
+              }
+
+              setIsPreviewVisible(false);
+            }}
+          />
         </button>
       ) : null}
     </div>

@@ -98,8 +98,16 @@ function App() {
   const prevSpecies = filteredSpecies[selectedIndex - 1] ?? null;
   const nextSpecies = filteredSpecies[selectedIndex + 1] ?? null;
   const selectedMedia = selectedSpecies ? speciesMediaMap[selectedSpecies.id] : null;
-  const selectedPrimaryImage =
-    selectedMedia?.images?.find((item) => item.isPrimary) ?? selectedMedia?.images?.[0] ?? null;
+  const selectedPreviewImages = useMemo(() => {
+    if (!selectedMedia?.images?.length) return [];
+
+    const ordered = [
+      ...selectedMedia.images.filter((item) => item.isPrimary),
+      ...selectedMedia.images.filter((item) => !item.isPrimary),
+    ];
+
+    return ordered.filter((item, index) => ordered.findIndex((candidate) => candidate.url === item.url) === index);
+  }, [selectedMedia]);
 
   useEffect(() => {
     if (!selectedSpecies) {
@@ -235,7 +243,7 @@ function App() {
           rangePolygon={distribution.range}
           speciesIcon={speciesIconMap[visualSpeciesId] ?? '•'}
           autoFocusTarget={distribution.focus}
-          previewImage={selectedPrimaryImage}
+          previewImages={selectedPreviewImages}
           previewTitle={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}
         />
       </section>
