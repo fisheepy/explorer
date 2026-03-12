@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Capybara</title>
+    <path d="M64 158c0-46 26-82 66-92 24-6 52 8 62 30-18 0-30 8-34 24 14 10 20 24 20 42 0 26-20 46-50 50-40 4-64-18-64-54Z" fill="#8b5e3c"/>
+    <circle cx="136" cy="110" r="8" fill="#422006"/>
+    <path d="M150 136c8 8 18 10 30 4" stroke="#422006" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="92" cy="92" rx="12" ry="16" fill="#d6b08b"/>
+  </svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Koala</title>
+    <ellipse cx="84" cy="118" rx="30" ry="34" fill="#e2e8f0"/>
+    <ellipse cx="172" cy="118" rx="30" ry="34" fill="#e2e8f0"/>
+    <circle cx="128" cy="128" r="72" fill="#94a3b8"/>
+    <circle cx="102" cy="118" r="6" fill="#334155"/><circle cx="154" cy="118" r="6" fill="#334155"/>
+    <ellipse cx="128" cy="140" rx="18" ry="24" fill="#334155"/>
+    <path d="M108 164c10 8 30 8 40 0" stroke="#334155" stroke-width="8" stroke-linecap="round"/>
+  </svg>

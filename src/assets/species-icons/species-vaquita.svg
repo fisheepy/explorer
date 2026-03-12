@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Vaquita</title>
+    <path d="M46 140c20-34 52-54 100-50 28 2 48 14 62 34-12 6-20 14-26 24-12 4-24 6-36 6-4 18-16 30-40 38-38 12-72-2-84-26-4-8 0-16 24-26Z" fill="#64748b"/>
+    <path d="M142 84c12-18 28-28 52-30-10 12-14 24-12 40" fill="#e2e8f0"/>
+    <path d="M82 146c14 8 30 10 44 2" stroke="#e2e8f0" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="88" cy="118" r="6" fill="#0f172a"/>
+  </svg>

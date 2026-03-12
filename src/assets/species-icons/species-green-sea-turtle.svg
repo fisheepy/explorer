@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Green Sea Turtle</title>
+    <ellipse cx="128" cy="132" rx="60" ry="74" fill="#16a34a"/>
+    <ellipse cx="128" cy="132" rx="40" ry="54" fill="#86efac"/>
+    <ellipse cx="128" cy="56" rx="18" ry="14" fill="#16a34a"/>
+    <ellipse cx="72" cy="102" rx="18" ry="12" transform="rotate(-30 72 102)" fill="#16a34a"/>
+    <ellipse cx="184" cy="102" rx="18" ry="12" transform="rotate(30 184 102)" fill="#16a34a"/>
+    <ellipse cx="84" cy="192" rx="18" ry="12" transform="rotate(24 84 192)" fill="#16a34a"/>
+    <ellipse cx="172" cy="192" rx="18" ry="12" transform="rotate(-24 172 192)" fill="#16a34a"/>
+    <circle cx="122" cy="54" r="4" fill="#166534"/>
+    <circle cx="134" cy="54" r="4" fill="#166534"/>
+  </svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Bald Eagle</title>
+    <path d="M84 92c12-26 34-40 60-40 28 0 50 14 64 38-8 12-20 20-34 26 0 32-18 58-46 72-36-8-62-36-62-72 0-8 2-16 18-24Z" fill="#7c4a24"/>
+    <path d="M102 98c10-18 24-28 42-28 22 0 38 10 50 28-12 10-28 18-46 18-18 0-34-6-46-18Z" fill="#f8fafc"/>
+    <path d="M134 126h38l-20 16Z" fill="#eab308"/>
+    <circle cx="120" cy="116" r="6" fill="#f8fafc"/>
+  </svg>

@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Shoebill</title>
+    <path d="M84 90c12-24 32-38 58-38 26 0 46 12 58 36-6 14-20 26-38 34v44c0 22-16 38-34 38s-34-16-34-38v-44c-18-8-32-20-40-32Z" fill="#64748b"/>
+    <path d="M108 122h58c-4 20-18 34-38 34-16 0-28-10-20-34Z" fill="#cbd5e1"/>
+    <circle cx="102" cy="104" r="5" fill="#334155"/><circle cx="154" cy="104" r="5" fill="#334155"/>
+  </svg>

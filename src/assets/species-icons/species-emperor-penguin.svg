@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Emperor Penguin</title>
+    <ellipse cx="128" cy="134" rx="54" ry="78" fill="#111827"/>
+    <ellipse cx="128" cy="146" rx="34" ry="56" fill="#f8fafc"/>
+    <ellipse cx="128" cy="86" rx="28" ry="24" fill="#f8fafc"/>
+    <circle cx="102" cy="86" r="5" fill="#111827"/><circle cx="154" cy="86" r="5" fill="#111827"/>
+    <path d="M128 104 114 122h28Z" fill="#f59e0b"/>
+  </svg>

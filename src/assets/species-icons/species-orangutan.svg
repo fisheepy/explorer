@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Orangutan</title>
+    <ellipse cx="78" cy="128" rx="34" ry="44" fill="#fdba74"/>
+    <ellipse cx="178" cy="128" rx="34" ry="44" fill="#fdba74"/>
+    <circle cx="128" cy="132" r="62" fill="#ea580c"/>
+    <ellipse cx="128" cy="138" rx="34" ry="38" fill="#7c2d12"/>
+    <circle cx="102" cy="126" r="5" fill="#f8fafc"/><circle cx="154" cy="126" r="5" fill="#f8fafc"/>
+    <path d="M114 154c8 8 20 8 28 0" stroke="#f8fafc" stroke-width="8" stroke-linecap="round"/>
+  </svg>

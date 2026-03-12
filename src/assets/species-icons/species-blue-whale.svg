@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Blue Whale</title>
+    <path d="M44 134c20-36 54-58 110-52 28 3 47 13 58 30-9 7-16 17-20 28 0 0-22 6-38 4-2 18-16 36-42 42-37 10-72-8-82-34-2-6 0-12 14-18Z" fill="#2563eb"/>
+    <path d="M154 92c12-18 34-28 56-30-8 12-12 26-10 42" fill="#2563eb"/>
+    <path d="M80 146c14 10 34 12 50 2" stroke="#93c5fd" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="88" cy="118" r="6" fill="#1e3a8a"/>
+  </svg>
