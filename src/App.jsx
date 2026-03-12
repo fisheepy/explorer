@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
-import { riskLegend, speciesFocusMap, speciesIconMap, speciesList, speciesNativeRanges } from './data/species';
+import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
+import { speciesIconAssetMap } from './data/speciesIconAssets';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 import { speciesMediaMap } from './data/speciesMedia';
 
@@ -97,7 +98,9 @@ function App() {
   const selectedSpecies = filteredSpecies[selectedIndex] ?? filteredSpecies[0] ?? speciesList[0];
   const prevSpecies = filteredSpecies[selectedIndex - 1] ?? null;
   const nextSpecies = filteredSpecies[selectedIndex + 1] ?? null;
+  const visualSpeciesId = distribution.speciesId ?? selectedSpecies?.id;
   const selectedMedia = selectedSpecies ? speciesMediaMap[selectedSpecies.id] : null;
+  const visualMedia = visualSpeciesId ? speciesMediaMap[visualSpeciesId] : null;
   const selectedPreviewImages = useMemo(() => {
     if (!selectedMedia?.images?.length) return [];
 
@@ -108,6 +111,7 @@ function App() {
 
     return ordered.filter((item, index) => ordered.findIndex((candidate) => candidate.url === item.url) === index);
   }, [selectedMedia]);
+  const selectedIconUrl = visualMedia?.icon?.assetName ? speciesIconAssetMap[visualMedia.icon.assetName] ?? null : null;
 
   useEffect(() => {
     if (!selectedSpecies) {
@@ -203,8 +207,6 @@ function App() {
           ? `fallback：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
           : '暂无分布数据';
 
-  const visualSpeciesId = distribution.speciesId ?? selectedSpecies?.id;
-
   return (
     <main className="space-page">
       <header className="space-header">
@@ -241,7 +243,8 @@ function App() {
         <GlobeScene
           distributionClusters={distribution.clusters}
           rangePolygon={distribution.range}
-          speciesIcon={speciesIconMap[visualSpeciesId] ?? '•'}
+          speciesIconUrl={selectedIconUrl}
+          speciesIconLabel={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}
           autoFocusTarget={distribution.focus}
           previewImages={selectedPreviewImages}
           previewTitle={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}

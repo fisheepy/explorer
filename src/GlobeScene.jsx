@@ -29,12 +29,23 @@ function cameraPositionForFocus(focus, distance = 4.25) {
   return direction.multiplyScalar(distance);
 }
 
-function createMarkerButton(cluster, onClick) {
+function createMarkerButton(cluster, onClick, iconUrl, iconLabel) {
   const button = document.createElement('button');
   button.type = 'button';
   button.className = 'globe-marker';
-  button.setAttribute('aria-label', `Show cluster image at ${cluster.lat.toFixed(1)}, ${cluster.lon.toFixed(1)}`);
-  button.textContent = '';
+  button.setAttribute('aria-label', `Show ${iconLabel || 'species'} image at ${cluster.lat.toFixed(1)}, ${cluster.lon.toFixed(1)}`);
+  if (iconUrl) {
+    const image = document.createElement('img');
+    image.className = 'globe-marker-icon';
+    image.src = iconUrl;
+    image.alt = '';
+    image.draggable = false;
+    button.appendChild(image);
+  } else {
+    const dot = document.createElement('span');
+    dot.className = 'globe-marker-dot';
+    button.appendChild(dot);
+  }
   button.addEventListener('click', onClick);
   return button;
 }
@@ -42,7 +53,8 @@ function createMarkerButton(cluster, onClick) {
 function GlobeScene({
   distributionClusters = [],
   rangePolygon = null,
-  speciesIcon = 'o',
+  speciesIconUrl = null,
+  speciesIconLabel = '',
   autoFocusTarget = null,
   previewImages = [],
   previewTitle = '',
@@ -181,9 +193,8 @@ function GlobeScene({
         if (previewImages.length > 0) {
           setIsPreviewVisible(true);
         }
-      });
+      }, speciesIconUrl, speciesIconLabel);
       button.style.setProperty('--marker-scale', `${scale}`);
-      button.dataset.icon = speciesIcon;
       markerLayer.appendChild(button);
       return { anchor, button };
     });
@@ -272,7 +283,7 @@ function GlobeScene({
         container.removeChild(renderer.domElement);
       }
     };
-  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget, previewImages, isPreviewVisible]);
+  }, [distributionClusters, rangePolygon, speciesIconUrl, speciesIconLabel, autoFocusTarget, previewImages, isPreviewVisible]);
 
   return (
     <div className="globe-scene" aria-label="Space view globe with species markers" ref={containerRef}>
