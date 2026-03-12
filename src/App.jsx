@@ -25,7 +25,7 @@ function SpeciesCard({ species, faded = false }) {
         </figure>
       ) : (
         <div className="species-photo-placeholder">图片待补充</div>
-      )
+      )}
       <p className="species-latin">{species.latinName}</p>
       <p className="species-category">{species.category}</p>
       <p className="species-intro">{species.intro}</p>
