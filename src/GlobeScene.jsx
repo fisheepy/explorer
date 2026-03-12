@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 
@@ -20,60 +20,57 @@ function latLonToVector3(lat, lon, radius) {
   );
 }
 
-function cameraPositionForFocus(focus, distance = 4.2) {
+function cameraPositionForFocus(focus, distance = 4.25) {
   if (!focus) {
-    return new THREE.Vector3(0, 0.2, distance);
+    return new THREE.Vector3(0, 0.1, distance);
   }
 
-  const dir = latLonToVector3(focus.lat, focus.lon, 1).normalize();
-  return dir.multiplyScalar(distance);
+  const direction = latLonToVector3(focus.lat, focus.lon, 1).normalize();
+  return direction.multiplyScalar(distance);
 }
 
-function createIconTexture(icon) {
-  const size = 128;
-  const canvas = document.createElement('canvas');
-  canvas.width = size;
-  canvas.height = size;
-  const ctx = canvas.getContext('2d');
-
-  ctx.clearRect(0, 0, size, size);
-  ctx.beginPath();
-  ctx.arc(size / 2, size / 2, 44, 0, Math.PI * 2);
-  ctx.fillStyle = 'rgba(2, 9, 28, 0.78)';
-  ctx.fill();
-  ctx.lineWidth = 4;
-  ctx.strokeStyle = 'rgba(245, 158, 11, 0.88)';
-  ctx.stroke();
-
-  ctx.font = '62px "Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif';
-  ctx.textAlign = 'center';
-  ctx.textBaseline = 'middle';
-  ctx.fillText(icon, size / 2, size / 2 + 2);
-
-  const texture = new THREE.CanvasTexture(canvas);
-  texture.colorSpace = THREE.SRGBColorSpace;
-  texture.needsUpdate = true;
-  return texture;
+function createMarkerButton(cluster, onClick) {
+  const button = document.createElement('button');
+  button.type = 'button';
+  button.className = 'globe-marker';
+  button.setAttribute('aria-label', `Show cluster image at ${cluster.lat.toFixed(1)}, ${cluster.lon.toFixed(1)}`);
+  button.textContent = '';
+  button.addEventListener('click', onClick);
+  return button;
 }
 
-function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIcon = '📍', autoFocusTarget = null }) {
+function GlobeScene({
+  distributionClusters = [],
+  rangePolygon = null,
+  speciesIcon = 'o',
+  autoFocusTarget = null,
+  previewImage = null,
+  previewTitle = '',
+}) {
   const containerRef = useRef(null);
+  const markerLayerRef = useRef(null);
+  const [isPreviewVisible, setIsPreviewVisible] = useState(false);
+
+  useEffect(() => {
+    setIsPreviewVisible(false);
+  }, [previewImage?.url]);
 
   useEffect(() => {
     const container = containerRef.current;
-    if (!container) {
+    const markerLayer = markerLayerRef.current;
+    if (!container || !markerLayer) {
       return undefined;
     }
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 2000);
-    const targetCameraPos = cameraPositionForFocus(autoFocusTarget, 4.2);
-    camera.position.set(0, 0.2, 4.2);
+    camera.position.copy(cameraPositionForFocus(autoFocusTarget, 4.25));
 
     const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
     renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
     renderer.setSize(container.clientWidth, container.clientHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.domElement.className = 'globe-canvas';
     container.appendChild(renderer.domElement);
 
     const loader = new THREE.TextureLoader();
@@ -148,33 +145,20 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
     );
     scene.add(atmosphere);
 
-    scene.add(new THREE.AmbientLight(0x6b8ec5, 0.28));
-    const sunLight = new THREE.DirectionalLight(0xffffff, 1.8);
+    scene.add(new THREE.AmbientLight(0x6b8ec5, 0.34));
+    const sunLight = new THREE.DirectionalLight(0xffffff, 1.9);
     sunLight.position.set(8, 2.5, 5);
     scene.add(sunLight);
-    const rimLight = new THREE.DirectionalLight(0x5ca2ff, 0.7);
+    const rimLight = new THREE.DirectionalLight(0x5ca2ff, 0.82);
     rimLight.position.set(-4, -2, -5);
     scene.add(rimLight);
-
-    const overlayGroup = new THREE.Group();
-    earth.add(overlayGroup);
-
-    const iconTexture = createIconTexture(speciesIcon);
-    const spriteMaterial = new THREE.SpriteMaterial({ map: iconTexture, transparent: true, depthWrite: false });
-
-    distributionClusters.forEach((cluster) => {
-      const sprite = new THREE.Sprite(spriteMaterial.clone());
-      sprite.position.copy(latLonToVector3(cluster.lat, cluster.lon, earthRadius + 0.06));
-      const scale = Math.min(0.23, 0.09 + Math.log2(cluster.count + 1) * 0.028);
-      sprite.scale.set(scale, scale, 1);
-      overlayGroup.add(sprite);
-    });
 
     if (rangePolygon && rangePolygon.length > 1) {
       const rangePoints = rangePolygon.map((point) => latLonToVector3(point.lat, point.lon, earthRadius + 0.035));
       const rangeGeometry = new THREE.BufferGeometry().setFromPoints(rangePoints);
       const rangeMaterial = new THREE.LineBasicMaterial({ color: 0x60a5fa, transparent: true, opacity: 0.95 });
-      overlayGroup.add(new THREE.Line(rangeGeometry, rangeMaterial));
+      const rangeLine = new THREE.Line(rangeGeometry, rangeMaterial);
+      earth.add(rangeLine);
     }
 
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -182,24 +166,61 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
     controls.enableDamping = true;
     controls.dampingFactor = 0.04;
     controls.enablePan = false;
-    controls.minDistance = 2.5;
-    controls.maxDistance = 8;
+    controls.minDistance = 2.8;
+    controls.maxDistance = 7;
     controls.rotateSpeed = 0.45;
 
+    let shouldAutoRotate = true;
+    const markerEntries = distributionClusters.map((cluster) => {
+      const anchor = latLonToVector3(cluster.lat, cluster.lon, earthRadius + 0.05);
+      const scale = Math.min(1.28, 0.92 + Math.log2(cluster.count + 1) * 0.14);
+      const button = createMarkerButton(cluster, () => {
+        if (previewImage?.url) {
+          setIsPreviewVisible(true);
+        }
+      });
+      button.style.setProperty('--marker-scale', `${scale}`);
+      button.dataset.icon = speciesIcon;
+      markerLayer.appendChild(button);
+      return { anchor, button };
+    });
+
     let frameId;
-    let focusBlend = 0;
+    const worldPosition = new THREE.Vector3();
+    const projected = new THREE.Vector3();
+
+    const updateMarkerPositions = () => {
+      const width = container.clientWidth;
+      const height = container.clientHeight;
+
+      markerEntries.forEach(({ anchor, button }) => {
+        worldPosition.copy(anchor);
+        earth.localToWorld(worldPosition);
+
+        projected.copy(worldPosition).project(camera);
+        if (projected.z < -1 || projected.z > 1) {
+          button.classList.remove('visible');
+          return;
+        }
+
+        const x = (projected.x * 0.5 + 0.5) * width;
+        const y = (-projected.y * 0.5 + 0.5) * height;
+
+        button.style.left = `${x}px`;
+        button.style.top = `${y}px`;
+        button.classList.add('visible');
+      });
+    };
 
     const animate = () => {
-      earth.rotation.y += 0.00075;
-      clouds.rotation.y += 0.00105;
-      starfield.rotation.y += 0.00008;
-
-      if (focusBlend < 1) {
-        focusBlend = Math.min(1, focusBlend + 0.045);
-        camera.position.lerp(targetCameraPos, focusBlend);
+      if (shouldAutoRotate && !isPreviewVisible) {
+        earth.rotation.y += 0.0011;
+        clouds.rotation.y += 0.00145;
+        starfield.rotation.y += 0.00008;
       }
 
       controls.update();
+      updateMarkerPositions();
       renderer.render(scene, camera);
       frameId = requestAnimationFrame(animate);
     };
@@ -209,22 +230,36 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
       camera.aspect = clientWidth / clientHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(clientWidth, clientHeight);
+      updateMarkerPositions();
+    };
+
+    const onPointerEnter = () => {
+      shouldAutoRotate = false;
+    };
+
+    const onPointerLeave = () => {
+      shouldAutoRotate = true;
     };
 
     window.addEventListener('resize', onResize);
+    container.addEventListener('pointerenter', onPointerEnter);
+    container.addEventListener('pointerleave', onPointerLeave);
     animate();
 
     return () => {
       window.removeEventListener('resize', onResize);
+      container.removeEventListener('pointerenter', onPointerEnter);
+      container.removeEventListener('pointerleave', onPointerLeave);
       cancelAnimationFrame(frameId);
       controls.dispose();
+      markerEntries.forEach(({ button }) => button.remove());
 
-      [earthMap, bumpMap, specMap, cloudMap, starMap, iconTexture].forEach((texture) => texture.dispose());
+      [earthMap, bumpMap, specMap, cloudMap, starMap].forEach((texture) => texture.dispose());
 
       scene.traverse((obj) => {
         if (obj.geometry) obj.geometry.dispose();
         if (obj.material) {
-          if (Array.isArray(obj.material)) obj.material.forEach((m) => m.dispose());
+          if (Array.isArray(obj.material)) obj.material.forEach((material) => material.dispose());
           else obj.material.dispose();
         }
       });
@@ -234,9 +269,23 @@ function GlobeScene({ distributionClusters = [], rangePolygon = null, speciesIco
         container.removeChild(renderer.domElement);
       }
     };
-  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget]);
+  }, [distributionClusters, rangePolygon, speciesIcon, autoFocusTarget, previewImage?.url, isPreviewVisible]);
 
-  return <div className="globe-scene" aria-label="太空视角地球+聚簇图标叠加" ref={containerRef} />;
+  return (
+    <div className="globe-scene" aria-label="Space view globe with species markers" ref={containerRef}>
+      <div className="globe-marker-layer" ref={markerLayerRef} aria-hidden="true" />
+      {previewImage?.url ? (
+        <button
+          type="button"
+          className={`globe-image-preview ${isPreviewVisible ? 'visible' : ''}`}
+          onClick={() => setIsPreviewVisible(false)}
+          aria-label={`Hide ${previewTitle || 'species'} preview`}
+        >
+          <img src={previewImage.url} alt={`${previewTitle || 'Species'} preview`} className="globe-image-preview-photo" />
+        </button>
+      ) : null}
+    </div>
+  );
 }
 
 export default GlobeScene;

@@ -5,8 +5,6 @@ import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetc
 import { speciesMediaMap } from './data/speciesMedia';
 
 function SpeciesCard({ species, faded = false }) {
-  const media = speciesMediaMap[species.id];
-  const primaryImage = media?.images?.find((item) => item.isPrimary) ?? media?.images?.[0] ?? null;
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
 
   return (
@@ -18,14 +16,6 @@ function SpeciesCard({ species, faded = false }) {
         </span>
       </div>
       <p className="species-en">{species.nameEn}</p>
-      {primaryImage ? (
-        <figure className="species-photo-wrap">
-          <img src={primaryImage.url} alt={`${species.nameEn} photo`} className="species-photo" loading="lazy" />
-          <figcaption>{primaryImage.attribution ?? primaryImage.source}</figcaption>
-        </figure>
-      ) : (
-        <div className="species-photo-placeholder">图片待补充</div>
-      )}
       <p className="species-latin">{species.latinName}</p>
       <p className="species-category">{species.category}</p>
       <p className="species-intro">{species.intro}</p>
@@ -107,10 +97,21 @@ function App() {
   const selectedSpecies = filteredSpecies[selectedIndex] ?? filteredSpecies[0] ?? speciesList[0];
   const prevSpecies = filteredSpecies[selectedIndex - 1] ?? null;
   const nextSpecies = filteredSpecies[selectedIndex + 1] ?? null;
+  const selectedMedia = selectedSpecies ? speciesMediaMap[selectedSpecies.id] : null;
+  const selectedPrimaryImage =
+    selectedMedia?.images?.find((item) => item.isPrimary) ?? selectedMedia?.images?.[0] ?? null;
 
   useEffect(() => {
     if (!selectedSpecies) {
-      setDistribution({ points: [], clusters: [], range: null, focus: null, source: 'empty', gbifTaxonKey: null, speciesId: null });
+      setDistribution({
+        points: [],
+        clusters: [],
+        range: null,
+        focus: null,
+        source: 'empty',
+        gbifTaxonKey: null,
+        speciesId: null,
+      });
       setIsSwitching(false);
       return;
     }
@@ -201,7 +202,7 @@ function App() {
       <header className="space-header">
         <p className="badge">World Theme Explorer · iPad Compact</p>
         <h1>单卡主视图 + 前后淡化预览</h1>
-        <p>只显示当前有效卡片，左右显示淡化预览，切换时增加缓冲避免图标与点位错位。</p>
+        <p>地球区域显示分布图标，点击图标出现图片，再点图片关闭。</p>
       </header>
 
       <section className="filter-row">
@@ -232,20 +233,28 @@ function App() {
         <GlobeScene
           distributionClusters={distribution.clusters}
           rangePolygon={distribution.range}
-          speciesIcon={speciesIconMap[visualSpeciesId] ?? '📍'}
+          speciesIcon={speciesIconMap[visualSpeciesId] ?? '•'}
           autoFocusTarget={distribution.focus}
+          previewImage={selectedPrimaryImage}
+          previewTitle={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}
         />
       </section>
 
       <section className="overlay-panel" aria-label="species cards">
         <div className="overlay-title-row compact">
-          <h2>{selectedSpecies?.nameZh ?? '未选择物种'} · {selectedIndex + 1}/{Math.max(filteredSpecies.length, 1)}</h2>
+          <h2>
+            {selectedSpecies?.nameZh ?? '未选择物种'} · {selectedIndex + 1}/{Math.max(filteredSpecies.length, 1)}
+          </h2>
           <p>{statusText}</p>
         </div>
 
         <div className="carousel-actions">
-          <button type="button" onClick={() => changeByOffset(-1)}>← 上一个</button>
-          <button type="button" onClick={() => changeByOffset(1)}>下一个 →</button>
+          <button type="button" onClick={() => changeByOffset(-1)}>
+            ← 上一个
+          </button>
+          <button type="button" onClick={() => changeByOffset(1)}>
+            下一个 →
+          </button>
         </div>
 
         <div className="species-carousel-compact" onTouchStart={onTouchStart} onTouchEnd={onTouchEnd}>
