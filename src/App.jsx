@@ -2,8 +2,11 @@ import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
 import { riskLegend, speciesFocusMap, speciesIconMap, speciesList, speciesNativeRanges } from './data/species';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
+import { speciesMediaMap } from './data/speciesMedia';
 
 function SpeciesCard({ species, faded = false }) {
+  const media = speciesMediaMap[species.id];
+  const primaryImage = media?.images?.find((item) => item.isPrimary) ?? media?.images?.[0] ?? null;
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
 
   return (
@@ -15,6 +18,14 @@ function SpeciesCard({ species, faded = false }) {
         </span>
       </div>
       <p className="species-en">{species.nameEn}</p>
+      {primaryImage ? (
+        <figure className="species-photo-wrap">
+          <img src={primaryImage.url} alt={`${species.nameEn} photo`} className="species-photo" loading="lazy" />
+          <figcaption>{primaryImage.attribution ?? primaryImage.source}</figcaption>
+        </figure>
+      ) : (
+        <div className="species-photo-placeholder">图片待补充</div>
+      )
       <p className="species-latin">{species.latinName}</p>
       <p className="species-category">{species.category}</p>
       <p className="species-intro">{species.intro}</p>
