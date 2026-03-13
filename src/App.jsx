@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import GlobeScene from './GlobeScene';
-import backgroundMusicUrl from './assets/species-icons/music/Sleeping Animal - Decay, Pt. 9.mp3';
+import backgroundMusicUrl from './assets/audio/background-music.m4a';
 import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
 import { speciesIconAssetMap } from './data/speciesIconAssets';
 import { speciesCardContentMap } from './data/speciesCardContent';
@@ -328,7 +328,7 @@ function App() {
           <div className="overlay-meta">
             <p>{statusText}</p>
             <button type="button" className="audio-toggle" onClick={toggleAudio}>
-              {audioEnabled ? 'Music On' : 'Music Off'}
+              {audioEnabled ? 'Music Pause' : 'Music Play'}
             </button>
           </div>
         </div>
