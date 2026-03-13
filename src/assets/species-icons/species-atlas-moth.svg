@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Atlas Moth</title>
-    <circle cx="128" cy="128" r="112" fill="#0f4c81"/>
-    <circle cx="128" cy="128" r="104" fill="#0f4c81" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#0f4c81"/>
   
     <path d="M124 128c-14-32-42-60-78-60-20 0-34 14-34 30 0 38 30 66 82 70l30-40Z" fill="#b45309"/>
     <path d="M132 128c14-32 42-60 78-60 20 0 34 14 34 30 0 38-30 66-82 70l-30-40Z" fill="#b45309"/>

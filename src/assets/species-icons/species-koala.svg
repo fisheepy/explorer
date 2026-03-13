@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Koala</title>
-    <circle cx="128" cy="128" r="112" fill="#f97316"/>
-    <circle cx="128" cy="128" r="104" fill="#f97316" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#f97316"/>
   
     <ellipse cx="104" cy="142" rx="54" ry="62" fill="#94a3b8"/>
     <ellipse cx="98" cy="92" rx="22" ry="26" fill="#e2e8f0"/>

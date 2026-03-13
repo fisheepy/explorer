@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Western Honey Bee</title>
-    <circle cx="128" cy="128" r="112" fill="#7c3aed"/>
-    <circle cx="128" cy="128" r="104" fill="#7c3aed" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#7c3aed"/>
   
     <path d="M84 118c-20-20-42-26-60-18 0 24 16 42 42 48ZM172 118c20-20 42-26 60-18 0 24-16 42-42 48Z" fill="#bfdbfe"/>
     <ellipse cx="128" cy="144" rx="48" ry="58" fill="#facc15"/>

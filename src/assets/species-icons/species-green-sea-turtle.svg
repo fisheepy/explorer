@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Green Sea Turtle</title>
-    <circle cx="128" cy="128" r="112" fill="#7c3aed"/>
-    <circle cx="128" cy="128" r="104" fill="#7c3aed" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#7c3aed"/>
   
     <ellipse cx="128" cy="134" rx="62" ry="82" fill="#16a34a"/>
     <ellipse cx="128" cy="134" rx="46" ry="62" fill="#86efac"/>

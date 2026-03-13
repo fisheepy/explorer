@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Red Panda</title>
-    <circle cx="128" cy="128" r="112" fill="#0f766e"/>
-    <circle cx="128" cy="128" r="104" fill="#0f766e" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#0f766e"/>
   
     <ellipse cx="116" cy="148" rx="70" ry="40" fill="#ea580c"/>
     <circle cx="174" cy="110" r="30" fill="#ea580c"/>

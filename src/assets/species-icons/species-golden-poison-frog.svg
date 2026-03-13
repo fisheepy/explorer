@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Golden Poison Frog</title>
-    <circle cx="128" cy="128" r="112" fill="#1d4ed8"/>
-    <circle cx="128" cy="128" r="104" fill="#1d4ed8" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#1d4ed8"/>
   
     <circle cx="92" cy="88" r="18" fill="#fde68a"/>
     <circle cx="164" cy="88" r="18" fill="#fde68a"/>

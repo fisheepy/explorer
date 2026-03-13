@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Shoebill</title>
-    <circle cx="128" cy="128" r="112" fill="#f59e0b"/>
-    <circle cx="128" cy="128" r="104" fill="#f59e0b" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#f59e0b"/>
   
     <ellipse cx="126" cy="144" rx="52" ry="70" fill="#64748b"/>
     <circle cx="146" cy="96" r="28" fill="#64748b"/>

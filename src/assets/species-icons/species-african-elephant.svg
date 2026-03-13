@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>African Savanna Elephant</title>
-    <circle cx="128" cy="128" r="112" fill="#ea580c"/>
-    <circle cx="128" cy="128" r="104" fill="#ea580c" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#ea580c"/>
   
     <ellipse cx="100" cy="124" rx="46" ry="62" fill="#f8fafc"/>
     <ellipse cx="172" cy="124" rx="46" ry="62" fill="#f8fafc"/>

@@ -2,24 +2,39 @@ import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
 import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
 import { speciesIconAssetMap } from './data/speciesIconAssets';
+import { speciesCardContentMap } from './data/speciesCardContent';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 import { speciesMediaMap } from './data/speciesMedia';
 
+const riskLabelsEn = {
+  CR: 'Critically Endangered',
+  EN: 'Endangered',
+  VU: 'Vulnerable',
+  NT: 'Near Threatened',
+  LC: 'Least Concern',
+  DD: 'Data Deficient',
+  NE: 'Not Evaluated',
+};
+
 function SpeciesCard({ species, faded = false }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
+  const cardContent = speciesCardContentMap[species.id] ?? {
+    category: species.category,
+    intro: species.intro,
+  };
 
   return (
     <article className={`species-card carousel-card ${faded ? 'faded' : ''}`}>
       <div className="species-card-top">
         <p className="species-zh">{species.nameZh}</p>
         <span className="risk-badge" style={{ backgroundColor: risk.color }}>
-          {species.riskLevel} · {risk.label}
+          {species.riskLevel} · {riskLabelsEn[species.riskLevel] ?? risk.label}
         </span>
       </div>
       <p className="species-en">{species.nameEn}</p>
       <p className="species-latin">{species.latinName}</p>
-      <p className="species-category">{species.category}</p>
-      <p className="species-intro">{species.intro}</p>
+      <p className="species-category">{cardContent.category}</p>
+      <p className="species-intro">{cardContent.intro}</p>
     </article>
   );
 }
@@ -202,12 +217,12 @@ function App() {
   };
 
   const statusText = isSwitching
-    ? '切换中：正在缓冲新物种分布...'
+    ? 'Switching species: loading a fresh range map...'
     : distribution.source === 'gbif'
-      ? `GBIF：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
+      ? `GBIF: ${distribution.points.length} raw points, ${distribution.clusters.length} clusters`
       : distribution.source === 'fallback'
-        ? `fallback：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
-        : '暂无分布数据';
+        ? `Fallback map: ${distribution.points.length} raw points, ${distribution.clusters.length} clusters`
+        : 'No range data yet.';
 
   const displayClusters = isSwitching ? [] : distribution.clusters;
   const displayRange = isSwitching ? null : distribution.range;
@@ -219,8 +234,8 @@ function App() {
     <main className="space-page">
       <header className="space-header">
         <p className="badge">World Theme Explorer · iPad Compact</p>
-        <h1>单卡主视图 + 前后淡化预览</h1>
-        <p>地球区域显示分布图标，点击图标出现图片，再点图片关闭。</p>
+        <h1>Single Main Card + Side Previews</h1>
+        <p>Tap a marker on the globe to pop up the animal photo, then tap the photo to hide it again.</p>
       </header>
 
       <section className="filter-row">
@@ -228,20 +243,20 @@ function App() {
           className="filter-input"
           value={search}
           onChange={(event) => setSearch(event.target.value)}
-          placeholder="搜索：中文名 / English / Latin"
+          placeholder="Search: Chinese name / English / Latin"
         />
         <select className="filter-select" value={categoryFilter} onChange={(event) => setCategoryFilter(event.target.value)}>
           {categories.map((category) => (
             <option key={category} value={category}>
-              {category === 'ALL' ? '全部分类' : category}
+              {category === 'ALL' ? 'All categories' : category}
             </option>
           ))}
         </select>
         <select className="filter-select" value={riskFilter} onChange={(event) => setRiskFilter(event.target.value)}>
-          <option value="ALL">全部风险</option>
+          <option value="ALL">All risk levels</option>
           {Object.entries(riskLegend).map(([code, meta]) => (
             <option key={code} value={code}>
-              {code} · {meta.label}
+              {code} · {riskLabelsEn[code] ?? meta.label}
             </option>
           ))}
         </select>
@@ -262,17 +277,17 @@ function App() {
       <section className="overlay-panel" aria-label="species cards">
         <div className="overlay-title-row compact">
           <h2>
-            {selectedSpecies?.nameZh ?? '未选择物种'} · {selectedIndex + 1}/{Math.max(filteredSpecies.length, 1)}
+            {selectedSpecies?.nameZh ?? 'No Species Selected'} · {selectedIndex + 1}/{Math.max(filteredSpecies.length, 1)}
           </h2>
           <p>{statusText}</p>
         </div>
 
         <div className="carousel-actions">
           <button type="button" onClick={() => changeByOffset(-1)}>
-            ← 上一个
+            ← Previous
           </button>
           <button type="button" onClick={() => changeByOffset(1)}>
-            下一个 →
+            Next →
           </button>
         </div>
 

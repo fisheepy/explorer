@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Snow Leopard</title>
-    <circle cx="128" cy="128" r="112" fill="#0f766e"/>
-    <circle cx="128" cy="128" r="104" fill="#0f766e" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#0f766e"/>
   
     <path d="M74 98 94 52l24 32H74ZM182 98l-20-46-24 32h44Z" fill="#475569"/>
     <circle cx="128" cy="140" r="72" fill="#dbe4ef"/>

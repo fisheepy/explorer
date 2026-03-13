@@ -49,8 +49,7 @@ function svgWrap(title, body, background) {
 
 function badgeBackground(color) {
   return `
-    <circle cx="128" cy="128" r="112" fill="${color}"/>
-    <circle cx="128" cy="128" r="104" fill="${color}" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="${color}"/>
   `;
 }
 

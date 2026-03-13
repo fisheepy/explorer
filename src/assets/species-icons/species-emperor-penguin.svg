@@ -1,6 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Emperor Penguin</title>
-    <circle cx="128" cy="128" r="112" fill="#0f766e"/>
-    <circle cx="128" cy="128" r="104" fill="#0f766e" opacity="0.92"/>
+    <circle cx="128" cy="128" r="128" fill="#0f766e"/>
   
     <ellipse cx="128" cy="144" rx="52" ry="78" fill="#111827"/>
     <ellipse cx="128" cy="154" rx="32" ry="56" fill="#f8fafc"/>
