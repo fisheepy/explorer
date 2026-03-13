@@ -1,4 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Giant Panda</title>
+    
+    <circle cx="128" cy="128" r="112" fill="#f97316"/>
+    <circle cx="128" cy="128" r="104" fill="#f97316" opacity="0.92"/>
+  
     <circle cx="128" cy="138" r="74" fill="#f8fafc"/>
     <circle cx="82" cy="74" r="24" fill="#111827"/>
     <circle cx="174" cy="74" r="24" fill="#111827"/>

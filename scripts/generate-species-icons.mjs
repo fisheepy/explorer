@@ -5,18 +5,18 @@ import { speciesList } from '../src/data/species.js';
 const OUTPUT_DIR = path.resolve('src/assets/species-icons');
 
 const ICON_CONFIG = {
-  'giant-panda': { kind: 'panda-sticker', colors: { primary: '#f8fafc', secondary: '#111827', accent: '#e2e8f0' } },
-  'snow-leopard': { kind: 'snow-leopard-sticker', colors: { primary: '#dbe4ef', secondary: '#475569', accent: '#f8fafc' } },
-  'amur-tiger': { kind: 'tiger-sticker', colors: { primary: '#f59e0b', secondary: '#111827', accent: '#fde68a' } },
+  'giant-panda': { kind: 'panda-sticker', colors: { primary: '#f8fafc', secondary: '#111827', accent: '#e2e8f0', background: '#f97316' } },
+  'snow-leopard': { kind: 'snow-leopard-sticker', colors: { primary: '#dbe4ef', secondary: '#475569', accent: '#f8fafc', background: '#0f766e' } },
+  'amur-tiger': { kind: 'tiger-sticker', colors: { primary: '#f59e0b', secondary: '#111827', accent: '#fde68a', background: '#1d4ed8' } },
   'asian-elephant': { kind: 'elephant-asian', colors: { primary: '#9a6b4a', secondary: '#4a2f20', accent: '#f7e7ce' } },
   'african-elephant': { kind: 'elephant-african', colors: { primary: '#73808c', secondary: '#253140', accent: '#f8fafc' } },
   'polar-bear': { kind: 'bear-face', colors: { primary: '#f8fafc', secondary: '#475569', accent: '#bfdbfe' } },
-  'blue-whale': { kind: 'blue-whale-sticker', colors: { primary: '#2563eb', secondary: '#1e3a8a', accent: '#93c5fd' } },
+  'blue-whale': { kind: 'blue-whale-sticker', colors: { primary: '#2563eb', secondary: '#1e3a8a', accent: '#93c5fd', background: '#f59e0b' } },
   orca: { kind: 'orca-profile', colors: { primary: '#0f172a', secondary: '#f8fafc', accent: '#38bdf8' } },
   'humpback-whale': { kind: 'whale-profile', colors: { primary: '#475569', secondary: '#0f172a', accent: '#cbd5e1' } },
   'green-sea-turtle': { kind: 'turtle-top', colors: { primary: '#16a34a', secondary: '#166534', accent: '#86efac' } },
   'komodo-dragon': { kind: 'lizard-body', colors: { primary: '#78716c', secondary: '#292524', accent: '#ca8a04' } },
-  'king-cobra': { kind: 'cobra-sticker', colors: { primary: '#22c55e', secondary: '#166534', accent: '#dcfce7' } },
+  'king-cobra': { kind: 'cobra-sticker', colors: { primary: '#22c55e', secondary: '#166534', accent: '#dcfce7', background: '#7c3aed' } },
   'saltwater-crocodile': { kind: 'croc-profile', colors: { primary: '#3f6212', secondary: '#1a2e05', accent: '#bef264' } },
   'emperor-penguin': { kind: 'penguin-body', colors: { primary: '#111827', secondary: '#f8fafc', accent: '#f59e0b' } },
   'bald-eagle': { kind: 'eagle-body', colors: { primary: '#7c4a24', secondary: '#f8fafc', accent: '#f59e0b' } },
@@ -46,8 +46,16 @@ function svgWrap(title, body) {
   ].join('');
 }
 
-function pandaSticker({ primary, secondary, accent }) {
+function badgeBackground(color) {
   return `
+    <circle cx="128" cy="128" r="112" fill="${color}"/>
+    <circle cx="128" cy="128" r="104" fill="${color}" opacity="0.92"/>
+  `;
+}
+
+function pandaSticker({ primary, secondary, accent, background }) {
+  return `
+    ${badgeBackground(background)}
     <circle cx="128" cy="138" r="74" fill="${primary}"/>
     <circle cx="82" cy="74" r="24" fill="${secondary}"/>
     <circle cx="174" cy="74" r="24" fill="${secondary}"/>
@@ -74,8 +82,9 @@ function bearFace({ primary, secondary, accent }) {
   `;
 }
 
-function tigerSticker({ primary, secondary, accent }) {
+function tigerSticker({ primary, secondary, accent, background }) {
   return `
+    ${badgeBackground(background)}
     <path d="M74 96 92 48l26 30H74ZM182 96l-18-48-26 30h44Z" fill="${secondary}"/>
     <circle cx="128" cy="138" r="74" fill="${primary}"/>
     <ellipse cx="128" cy="164" rx="32" ry="22" fill="${accent}"/>
@@ -87,8 +96,9 @@ function tigerSticker({ primary, secondary, accent }) {
   `;
 }
 
-function snowLeopardSticker({ primary, secondary, accent }) {
+function snowLeopardSticker({ primary, secondary, accent, background }) {
   return `
+    ${badgeBackground(background)}
     <path d="M74 98 94 52l24 32H74ZM182 98l-20-46-24 32h44Z" fill="${secondary}"/>
     <circle cx="128" cy="140" r="72" fill="${primary}"/>
     <ellipse cx="128" cy="164" rx="30" ry="22" fill="${accent}"/>
@@ -161,8 +171,9 @@ function whaleProfile({ primary, secondary, accent }) {
   `;
 }
 
-function blueWhaleSticker({ primary, secondary, accent }) {
+function blueWhaleSticker({ primary, secondary, accent, background }) {
   return `
+    ${badgeBackground(background)}
     <path d="M36 142c26-40 72-60 138-56 24 2 40 10 52 24-14 8-22 20-24 34-12 4-22 4-34 0-10 20-28 36-64 44-44 10-88-6-100-34-4-8 0-10 32-12Z" fill="${primary}"/>
     <path d="M152 86c16-18 34-28 58-30-8 12-10 24-8 40" fill="${primary}"/>
     <path d="M84 150c20 12 48 14 68 4" stroke="${accent}" stroke-width="10" stroke-linecap="round"/>
@@ -205,8 +216,9 @@ function lizardBody({ primary, secondary, accent }) {
   `;
 }
 
-function cobraSticker({ primary, secondary, accent }) {
+function cobraSticker({ primary, secondary, accent, background }) {
   return `
+    ${badgeBackground(background)}
     <path d="M128 40c30 0 56 22 56 54 0 22-12 40-32 52 10 12 16 30 16 52 0 14-2 28-8 40h-64c-6-12-8-26-8-40 0-22 6-40 16-52-20-12-32-30-32-52 0-32 26-54 56-54Z" fill="${primary}"/>
     <path d="M94 112c14-18 24-28 34-32M162 112c-14-18-24-28-34-32" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
     <circle cx="114" cy="108" r="6" fill="${secondary}"/>
