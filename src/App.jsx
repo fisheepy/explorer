@@ -16,6 +16,20 @@ const riskLabelsEn = {
   NE: 'Not Evaluated',
 };
 
+const rainbowCardThemes = [
+  'linear-gradient(145deg, rgba(255, 99, 132, 0.92), rgba(255, 159, 64, 0.84))',
+  'linear-gradient(145deg, rgba(255, 189, 46, 0.92), rgba(134, 239, 172, 0.82))',
+  'linear-gradient(145deg, rgba(56, 189, 248, 0.9), rgba(59, 130, 246, 0.84))',
+  'linear-gradient(145deg, rgba(129, 140, 248, 0.92), rgba(236, 72, 153, 0.84))',
+  'linear-gradient(145deg, rgba(45, 212, 191, 0.9), rgba(16, 185, 129, 0.84))',
+  'linear-gradient(145deg, rgba(244, 114, 182, 0.9), rgba(168, 85, 247, 0.82))',
+];
+
+function getCardTheme(speciesId) {
+  const seed = Array.from(speciesId).reduce((sum, char) => sum + char.charCodeAt(0), 0);
+  return rainbowCardThemes[seed % rainbowCardThemes.length];
+}
+
 function SpeciesCard({ species, faded = false }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
   const cardContent = speciesCardContentMap[species.id] ?? {
@@ -24,7 +38,10 @@ function SpeciesCard({ species, faded = false }) {
   };
 
   return (
-    <article className={`species-card carousel-card ${faded ? 'faded' : ''}`}>
+    <article
+      className={`species-card carousel-card ${faded ? 'faded' : ''}`}
+      style={{ '--card-gradient': getCardTheme(species.id) }}
+    >
       <div className="species-card-top">
         <p className="species-zh">{species.nameZh}</p>
         <span className="risk-badge" style={{ backgroundColor: risk.color }}>
@@ -232,13 +249,7 @@ function App() {
 
   return (
     <main className="space-page">
-      <header className="space-header">
-        <p className="badge">World Theme Explorer · iPad Compact</p>
-        <h1>Single Main Card + Side Previews</h1>
-        <p>Tap a marker on the globe to pop up the animal photo, then tap the photo to hide it again.</p>
-      </header>
-
-      <section className="filter-row">
+      <section className="filter-row" aria-label="filters">
         <input
           className="filter-input"
           value={search}
