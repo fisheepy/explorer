@@ -202,14 +202,26 @@ function GlobeScene({
     let frameId;
     const worldPosition = new THREE.Vector3();
     const projected = new THREE.Vector3();
+    const earthCenter = new THREE.Vector3();
+    const surfaceNormal = new THREE.Vector3();
+    const cameraVector = new THREE.Vector3();
 
     const updateMarkerPositions = () => {
       const width = container.clientWidth;
       const height = container.clientHeight;
+      earth.getWorldPosition(earthCenter);
+      cameraVector.subVectors(camera.position, earthCenter).normalize();
 
       markerEntries.forEach(({ anchor, button }) => {
         worldPosition.copy(anchor);
         earth.localToWorld(worldPosition);
+        surfaceNormal.subVectors(worldPosition, earthCenter).normalize();
+
+        // Hide markers on the far hemisphere instead of projecting them through the globe.
+        if (surfaceNormal.dot(cameraVector) <= 0) {
+          button.classList.remove('visible');
+          return;
+        }
 
         projected.copy(worldPosition).project(camera);
         if (projected.z < -1 || projected.z > 1) {
