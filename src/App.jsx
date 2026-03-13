@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useRef, useState } from 'react';
 import GlobeScene from './GlobeScene';
+import backgroundMusicUrl from './assets/species-icons/music/Sleeping Animal - Decay, Pt. 9.mp3';
 import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
 import { speciesIconAssetMap } from './data/speciesIconAssets';
 import { speciesCardContentMap } from './data/speciesCardContent';
@@ -80,9 +81,7 @@ function getPrimaryFocus(clusters, fallbackFocus) {
 }
 
 function App() {
-  const audioContextRef = useRef(null);
-  const masterGainRef = useRef(null);
-  const audioNodesRef = useRef([]);
+  const audioRef = useRef(null);
   const [selectedId, setSelectedId] = useState(speciesList[0].id);
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
@@ -252,84 +251,35 @@ function App() {
   const displayIconUrl = isSwitching ? null : selectedIconUrl;
 
   useEffect(() => {
+    const audio = new Audio(backgroundMusicUrl);
+    audio.loop = true;
+    audio.preload = 'auto';
+    audio.volume = 0.18;
+    audioRef.current = audio;
+
     return () => {
-      audioNodesRef.current.forEach((node) => {
-        if (typeof node.stop === 'function') node.stop();
-        if (typeof node.disconnect === 'function') node.disconnect();
-      });
-      audioNodesRef.current = [];
-      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
-        audioContextRef.current.close();
-      }
+      audio.pause();
+      audio.currentTime = 0;
+      audioRef.current = null;
     };
   }, []);
 
-  function detuneDrift(gain, oscillator, context, index) {
-    const now = context.currentTime;
-    oscillator.detune.setValueAtTime(index * 3, now);
-    oscillator.detune.linearRampToValueAtTime(index % 2 === 0 ? 9 : -7, now + 14);
-    oscillator.detune.linearRampToValueAtTime(index * 3, now + 28);
-
-    gain.gain.setValueAtTime(gain.gain.value, now);
-    gain.gain.linearRampToValueAtTime(gain.gain.value * 0.72, now + 9);
-    gain.gain.linearRampToValueAtTime(gain.gain.value, now + 18);
-  }
-
-  const ensureAmbientAudio = async () => {
-    if (typeof window === 'undefined') return false;
-
-    if (!audioContextRef.current) {
-      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
-      if (!AudioContextClass) return false;
-
-      const context = new AudioContextClass();
-      const masterGain = context.createGain();
-      masterGain.gain.value = 0.035;
-      masterGain.connect(context.destination);
-
-      const chord = [
-        { frequency: 196, type: 'sine', gain: 0.36 },
-        { frequency: 246.94, type: 'triangle', gain: 0.18 },
-        { frequency: 293.66, type: 'sine', gain: 0.12 },
-      ];
-
-      const nodes = chord.flatMap((tone, index) => {
-        const oscillator = context.createOscillator();
-        const gain = context.createGain();
-
-        oscillator.type = tone.type;
-        oscillator.frequency.value = tone.frequency;
-        detuneDrift(gain, oscillator, context, index);
-
-        gain.gain.value = tone.gain;
-        oscillator.connect(gain);
-        gain.connect(masterGain);
-        oscillator.start();
-
-        return [oscillator, gain];
-      });
-
-      audioContextRef.current = context;
-      masterGainRef.current = masterGain;
-      audioNodesRef.current = nodes;
-    }
-
-    if (audioContextRef.current.state === 'suspended') {
-      await audioContextRef.current.resume();
-    }
-
-    return true;
-  };
   const toggleAudio = async () => {
-    const ready = await ensureAmbientAudio();
-    if (!ready || !masterGainRef.current) return;
+    if (!audioRef.current) return;
 
-    const nextEnabled = !audioEnabled;
-    const now = audioContextRef.current.currentTime;
-    masterGainRef.current.gain.cancelScheduledValues(now);
-    masterGainRef.current.gain.setValueAtTime(masterGainRef.current.gain.value, now);
-    masterGainRef.current.gain.linearRampToValueAtTime(nextEnabled ? 0.035 : 0, now + 0.6);
-    setAudioEnabled(nextEnabled);
+    if (audioEnabled) {
+      audioRef.current.pause();
+      setAudioEnabled(false);
+      return;
+    }
+
+    try {
+      audioRef.current.volume = 0.18;
+      await audioRef.current.play();
+      setAudioEnabled(true);
+    } catch {
+      setAudioEnabled(false);
+    }
   };
 
   return (
