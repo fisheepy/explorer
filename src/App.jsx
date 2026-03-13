@@ -8,12 +8,6 @@ import { speciesMediaMap } from './data/speciesMedia';
 function SpeciesCard({ species, faded = false }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
 
-  const displayClusters = isSwitching ? [] : distribution.clusters;
-  const displayRange = isSwitching ? null : distribution.range;
-  const displayFocus = isSwitching ? null : distribution.focus;
-  const displayPreviewImages = isSwitching ? [] : selectedPreviewImages;
-  const displayIconUrl = isSwitching ? null : selectedIconUrl;
-
   return (
     <article className={`species-card carousel-card ${faded ? 'faded' : ''}`}>
       <div className="species-card-top">
@@ -105,8 +99,10 @@ function App() {
   const prevSpecies = filteredSpecies[selectedIndex - 1] ?? null;
   const nextSpecies = filteredSpecies[selectedIndex + 1] ?? null;
   const visualSpeciesId = distribution.speciesId ?? selectedSpecies?.id;
+
   const selectedMedia = selectedSpecies ? speciesMediaMap[selectedSpecies.id] : null;
   const visualMedia = visualSpeciesId ? speciesMediaMap[visualSpeciesId] : null;
+
   const selectedPreviewImages = useMemo(() => {
     if (!selectedMedia?.images?.length) return [];
 
@@ -117,6 +113,7 @@ function App() {
 
     return ordered.filter((item, index) => ordered.findIndex((candidate) => candidate.url === item.url) === index);
   }, [selectedMedia]);
+
   const selectedIconUrl = visualMedia?.icon?.assetName ? speciesIconAssetMap[visualMedia.icon.assetName] ?? null : null;
 
   useEffect(() => {
@@ -204,14 +201,19 @@ function App() {
     setTouchStartX(null);
   };
 
-  const statusText =
-    isSwitching
-      ? '切换中：正在缓冲新物种分布...'
-      : distribution.source === 'gbif'
-        ? `GBIF：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
-        : distribution.source === 'fallback'
-          ? `fallback：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
-          : '暂无分布数据';
+  const statusText = isSwitching
+    ? '切换中：正在缓冲新物种分布...'
+    : distribution.source === 'gbif'
+      ? `GBIF：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
+      : distribution.source === 'fallback'
+        ? `fallback：原始点 ${distribution.points.length}，聚簇 ${distribution.clusters.length}`
+        : '暂无分布数据';
+
+  const displayClusters = isSwitching ? [] : distribution.clusters;
+  const displayRange = isSwitching ? null : distribution.range;
+  const displayFocus = isSwitching ? null : distribution.focus;
+  const displayPreviewImages = isSwitching ? [] : selectedPreviewImages;
+  const displayIconUrl = isSwitching ? null : selectedIconUrl;
 
   return (
     <main className="space-page">

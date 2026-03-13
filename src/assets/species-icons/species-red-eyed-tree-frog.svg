@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Red-eyed Tree Frog</title>
-    <circle cx="96" cy="82" r="18" fill="#facc15"/>
-    <circle cx="160" cy="82" r="18" fill="#facc15"/>
-    <ellipse cx="128" cy="134" rx="64" ry="70" fill="#22c55e"/>
+    <circle cx="94" cy="78" r="22" fill="#facc15"/>
+    <circle cx="162" cy="78" r="22" fill="#facc15"/>
+    <ellipse cx="128" cy="136" rx="72" ry="78" fill="#22c55e"/>
     <circle cx="96" cy="82" r="8" fill="#ef4444"/>
     <circle cx="160" cy="82" r="8" fill="#ef4444"/>
     <path d="M102 154c10 10 42 10 52 0" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>

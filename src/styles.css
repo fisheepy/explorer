@@ -105,10 +105,10 @@ h1 {
 
 .globe-marker {
   position: absolute;
-  width: 30px;
-  height: 30px;
-  margin-left: -15px;
-  margin-top: -15px;
+  width: 38px;
+  height: 38px;
+  margin-left: -19px;
+  margin-top: -19px;
   border: 0;
   border-radius: 999px;
   background: rgba(5, 14, 32, 0.9);
@@ -123,8 +123,8 @@ h1 {
 }
 
 .globe-marker-icon {
-  width: 20px;
-  height: 20px;
+  width: 28px;
+  height: 28px;
   display: block;
   pointer-events: none;
 }

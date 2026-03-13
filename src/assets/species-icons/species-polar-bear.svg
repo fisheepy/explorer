@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Polar Bear</title>
-    <circle cx="84" cy="78" r="26" fill="#334155"/>
-    <circle cx="172" cy="78" r="26" fill="#334155"/>
-    <circle cx="128" cy="128" r="78" fill="#f8fafc"/>
-    <ellipse cx="128" cy="150" rx="36" ry="28" fill="#dbeafe"/>
-    <circle cx="102" cy="114" r="8" fill="#334155"/><circle cx="154" cy="114" r="8" fill="#334155"/>
-    <circle cx="128" cy="142" r="10" fill="#334155"/>
+    <circle cx="80" cy="72" r="28" fill="#334155"/>
+    <circle cx="176" cy="72" r="28" fill="#334155"/>
+    <circle cx="128" cy="128" r="84" fill="#f8fafc"/>
+    <ellipse cx="128" cy="154" rx="40" ry="30" fill="#dbeafe"/>
+    <circle cx="102" cy="116" r="9" fill="#334155"/><circle cx="154" cy="116" r="9" fill="#334155"/>
+    <circle cx="128" cy="144" r="11" fill="#334155"/>
   </svg>
