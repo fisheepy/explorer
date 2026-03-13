@@ -1,7 +1,6 @@
 import { useEffect, useMemo, useState } from 'react';
 import GlobeScene from './GlobeScene';
 import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
-import { speciesIconAssetMap } from './data/speciesIconAssets';
 import { buildFallbackPoints, buildRangePolygon, clusterDistributionPoints, fetchGbifOccurrences } from './services/gbif';
 import { speciesMediaMap } from './data/speciesMedia';
 
@@ -45,6 +44,17 @@ function getPrimaryFocus(clusters, fallbackFocus) {
   const main = [...clusters].sort((a, b) => b.count - a.count)[0];
   if (!main) return fallbackFocus ?? null;
   return { lat: main.lat, lon: main.lon, strength: main.count };
+}
+
+function orderMediaImages(images = []) {
+  if (!images.length) return [];
+
+  const ordered = [
+    ...images.filter((item) => item.isPrimary),
+    ...images.filter((item) => !item.isPrimary),
+  ];
+
+  return ordered.filter((item, index) => ordered.findIndex((candidate) => candidate.url === item.url) === index);
 }
 
 function App() {
@@ -103,18 +113,9 @@ function App() {
   const selectedMedia = selectedSpecies ? speciesMediaMap[selectedSpecies.id] : null;
   const visualMedia = visualSpeciesId ? speciesMediaMap[visualSpeciesId] : null;
 
-  const selectedPreviewImages = useMemo(() => {
-    if (!selectedMedia?.images?.length) return [];
-
-    const ordered = [
-      ...selectedMedia.images.filter((item) => item.isPrimary),
-      ...selectedMedia.images.filter((item) => !item.isPrimary),
-    ];
-
-    return ordered.filter((item, index) => ordered.findIndex((candidate) => candidate.url === item.url) === index);
-  }, [selectedMedia]);
-
-  const selectedIconUrl = visualMedia?.icon?.assetName ? speciesIconAssetMap[visualMedia.icon.assetName] ?? null : null;
+  const selectedPreviewImages = useMemo(() => orderMediaImages(selectedMedia?.images), [selectedMedia]);
+  const visualMarkerImages = useMemo(() => orderMediaImages(visualMedia?.images), [visualMedia]);
+  const selectedIconUrl = visualMarkerImages[0]?.url ?? null;
 
   useEffect(() => {
     if (!selectedSpecies) {
