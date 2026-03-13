@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import GlobeScene from './GlobeScene';
 import { riskLegend, speciesFocusMap, speciesList, speciesNativeRanges } from './data/species';
 import { speciesIconAssetMap } from './data/speciesIconAssets';
@@ -80,12 +80,16 @@ function getPrimaryFocus(clusters, fallbackFocus) {
 }
 
 function App() {
+  const audioContextRef = useRef(null);
+  const masterGainRef = useRef(null);
+  const audioNodesRef = useRef([]);
   const [selectedId, setSelectedId] = useState(speciesList[0].id);
   const [search, setSearch] = useState('');
   const [riskFilter, setRiskFilter] = useState('ALL');
   const [categoryFilter, setCategoryFilter] = useState('ALL');
   const [touchStartX, setTouchStartX] = useState(null);
   const [isSwitching, setIsSwitching] = useState(false);
+  const [audioEnabled, setAudioEnabled] = useState(false);
 
   const [distribution, setDistribution] = useState({
     points: [],
@@ -247,6 +251,87 @@ function App() {
   const displayPreviewImages = isSwitching ? [] : selectedPreviewImages;
   const displayIconUrl = isSwitching ? null : selectedIconUrl;
 
+  useEffect(() => {
+    return () => {
+      audioNodesRef.current.forEach((node) => {
+        if (typeof node.stop === 'function') node.stop();
+        if (typeof node.disconnect === 'function') node.disconnect();
+      });
+      audioNodesRef.current = [];
+      if (audioContextRef.current && audioContextRef.current.state !== 'closed') {
+        audioContextRef.current.close();
+      }
+    };
+  }, []);
+
+  function detuneDrift(gain, oscillator, context, index) {
+    const now = context.currentTime;
+    oscillator.detune.setValueAtTime(index * 3, now);
+    oscillator.detune.linearRampToValueAtTime(index % 2 === 0 ? 9 : -7, now + 14);
+    oscillator.detune.linearRampToValueAtTime(index * 3, now + 28);
+
+    gain.gain.setValueAtTime(gain.gain.value, now);
+    gain.gain.linearRampToValueAtTime(gain.gain.value * 0.72, now + 9);
+    gain.gain.linearRampToValueAtTime(gain.gain.value, now + 18);
+  }
+
+  const ensureAmbientAudio = async () => {
+    if (typeof window === 'undefined') return false;
+
+    if (!audioContextRef.current) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      if (!AudioContextClass) return false;
+
+      const context = new AudioContextClass();
+      const masterGain = context.createGain();
+      masterGain.gain.value = 0.035;
+      masterGain.connect(context.destination);
+
+      const chord = [
+        { frequency: 196, type: 'sine', gain: 0.36 },
+        { frequency: 246.94, type: 'triangle', gain: 0.18 },
+        { frequency: 293.66, type: 'sine', gain: 0.12 },
+      ];
+
+      const nodes = chord.flatMap((tone, index) => {
+        const oscillator = context.createOscillator();
+        const gain = context.createGain();
+
+        oscillator.type = tone.type;
+        oscillator.frequency.value = tone.frequency;
+        detuneDrift(gain, oscillator, context, index);
+
+        gain.gain.value = tone.gain;
+        oscillator.connect(gain);
+        gain.connect(masterGain);
+        oscillator.start();
+
+        return [oscillator, gain];
+      });
+
+      audioContextRef.current = context;
+      masterGainRef.current = masterGain;
+      audioNodesRef.current = nodes;
+    }
+
+    if (audioContextRef.current.state === 'suspended') {
+      await audioContextRef.current.resume();
+    }
+
+    return true;
+  };
+  const toggleAudio = async () => {
+    const ready = await ensureAmbientAudio();
+    if (!ready || !masterGainRef.current) return;
+
+    const nextEnabled = !audioEnabled;
+    const now = audioContextRef.current.currentTime;
+    masterGainRef.current.gain.cancelScheduledValues(now);
+    masterGainRef.current.gain.setValueAtTime(masterGainRef.current.gain.value, now);
+    masterGainRef.current.gain.linearRampToValueAtTime(nextEnabled ? 0.035 : 0, now + 0.6);
+    setAudioEnabled(nextEnabled);
+  };
+
   return (
     <main className="space-page">
       <section className="filter-row" aria-label="filters">
@@ -290,7 +375,12 @@ function App() {
           <h2>
             {selectedSpecies?.nameZh ?? 'No Species Selected'} · {selectedIndex + 1}/{Math.max(filteredSpecies.length, 1)}
           </h2>
-          <p>{statusText}</p>
+          <div className="overlay-meta">
+            <p>{statusText}</p>
+            <button type="button" className="audio-toggle" onClick={toggleAudio}>
+              {audioEnabled ? 'Music On' : 'Music Off'}
+            </button>
+          </div>
         </div>
 
         <div className="carousel-actions">

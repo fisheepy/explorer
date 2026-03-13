@@ -199,6 +199,27 @@ body {
   font-size: 0.86rem;
 }
 
+.overlay-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+}
+
+.audio-toggle {
+  border: 1px solid rgba(255, 255, 255, 0.24);
+  background: rgba(255, 255, 255, 0.12);
+  color: #fff;
+  border-radius: 999px;
+  padding: 0.42rem 0.8rem;
+  font-size: 0.8rem;
+  cursor: pointer;
+  backdrop-filter: blur(10px);
+}
+
+.audio-toggle:hover {
+  background: rgba(255, 255, 255, 0.18);
+}
+
 .species-grid {
   display: none;
 }
@@ -352,6 +373,11 @@ body {
 
   .carousel-actions button {
     font-size: 0.8rem;
+  }
+
+  .overlay-meta {
+    width: 100%;
+    justify-content: space-between;
   }
 }
 
