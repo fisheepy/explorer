@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Humpback Whale</title>
-    <path d="M34 136c24-42 64-64 124-58 30 2 50 14 62 32-10 8-18 18-22 30 0 0-22 8-40 6-4 20-18 38-48 46-40 12-82-8-92-38-2-8 2-12 16-18Z" fill="#475569"/>
-    <path d="M156 88c14-20 36-30 60-30-8 16-12 28-10 46" fill="#475569"/>
-    <path d="M78 148c18 12 40 14 58 2" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="84" cy="116" r="7" fill="#0f172a"/>
+    <path d="M28 144c26-44 70-62 134-56 34 4 54 20 66 40-16 10-26 22-30 38-20 4-36 0-48-10-10 20-28 36-62 44-46 10-92-12-102-40-2-8 2-10 42-16Z" fill="#475569"/>
+    <path d="M156 88c18-24 38-36 64-36-8 18-12 32-10 50" fill="#475569"/>
+    <path d="M82 150c18 12 44 14 64 4" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="86" cy="118" r="6" fill="#0f172a"/>
   </svg>

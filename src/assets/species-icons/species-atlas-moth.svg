@@ -1,8 +1,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Atlas Moth</title>
-    <path d="M126 124c-12-26-38-52-68-52-16 0-30 12-30 28 0 30 26 56 70 58l28-34Z" fill="#b45309"/>
-    <path d="M130 124c12-26 38-52 68-52 16 0 30 12 30 28 0 30-26 56-70 58l-28-34Z" fill="#b45309"/>
-    <path d="M126 130c-12 22-28 42-56 48-20 4-34-8-36-26-2-22 18-38 54-44l38 22Z" fill="#fcd34d"/>
-    <path d="M130 130c12 22 28 42 56 48 20 4 34-8 36-26 2-22-18-38-54-44l-38 22Z" fill="#fcd34d"/>
-    <path d="M128 90v96" stroke="#78350f" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="102" cy="122" r="4" fill="#78350f"/><circle cx="154" cy="122" r="4" fill="#78350f"/>
+    <path d="M124 128c-14-32-42-60-78-60-20 0-34 14-34 30 0 38 30 66 82 70l30-40Z" fill="#b45309"/>
+    <path d="M132 128c14-32 42-60 78-60 20 0 34 14 34 30 0 38-30 66-82 70l-30-40Z" fill="#b45309"/>
+    <path d="M124 132c-12 26-34 56-68 60-22 2-38-10-40-30-2-24 20-42 60-48l48 18Z" fill="#fcd34d"/>
+    <path d="M132 132c12 26 34 56 68 60 22 2 38-10 40-30 2-24-20-42-60-48l-48 18Z" fill="#fcd34d"/>
+    <path d="M128 86v98" stroke="#78350f" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="116" cy="126" r="4" fill="#78350f"/>
+    <circle cx="140" cy="126" r="4" fill="#78350f"/>
   </svg>

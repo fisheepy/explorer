@@ -1,8 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Orangutan</title>
-    <ellipse cx="74" cy="128" rx="40" ry="52" fill="#fdba74"/>
-    <ellipse cx="182" cy="128" rx="40" ry="52" fill="#fdba74"/>
-    <circle cx="128" cy="132" r="72" fill="#ea580c"/>
-    <ellipse cx="128" cy="140" rx="38" ry="42" fill="#7c2d12"/>
-    <circle cx="102" cy="126" r="6" fill="#f8fafc"/><circle cx="154" cy="126" r="6" fill="#f8fafc"/>
-    <path d="M114 154c8 8 20 8 28 0" stroke="#f8fafc" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="138" cy="108" r="34" fill="#ea580c"/>
+    <ellipse cx="138" cy="116" rx="20" ry="24" fill="#7c2d12"/>
+    <ellipse cx="102" cy="112" rx="24" ry="34" fill="#fdba74"/>
+    <ellipse cx="174" cy="112" rx="24" ry="34" fill="#fdba74"/>
+    <path d="M86 126c-24 26-30 44-32 76M190 126c24 26 30 44 32 76" stroke="#ea580c" stroke-width="16" stroke-linecap="round"/>
+    <path d="M116 154c8 10 16 28 18 54M160 154c-8 10-16 28-18 54" stroke="#ea580c" stroke-width="14" stroke-linecap="round"/>
+    <circle cx="130" cy="108" r="5" fill="#f8fafc"/>
+    <circle cx="146" cy="108" r="5" fill="#f8fafc"/>
   </svg>

@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Monarch Butterfly</title>
-    <path d="M124 128c-12-34-40-64-74-64-16 0-28 12-28 28 0 38 30 68 76 70l26-34Z" fill="#f97316"/>
-    <path d="M132 128c12-34 40-64 74-64 16 0 28 12 28 28 0 38-30 68-76 70l-26-34Z" fill="#f97316"/>
-    <path d="M124 132c-12 28-34 58-64 64-20 4-36-8-38-28-2-26 20-46 60-52l42 16Z" fill="#fde68a"/>
-    <path d="M132 132c12 28 34 58 64 64 20 4 36-8 38-28 2-26-20-46-60-52l-42 16Z" fill="#fde68a"/>
-    <path d="M128 86v96" stroke="#111827" stroke-width="10" stroke-linecap="round"/>
-    <path d="M126 84 112 62M130 84l14-22" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
+    <path d="M124 128c-14-34-44-68-82-68-18 0-32 14-32 32 0 40 32 70 86 74l28-38Z" fill="#f97316"/>
+    <path d="M132 128c14-34 44-68 82-68 18 0 32 14 32 32 0 40-32 70-86 74l-28-38Z" fill="#f97316"/>
+    <path d="M124 132c-12 30-34 62-68 68-22 4-38-8-40-30-2-28 20-48 62-54l46 16Z" fill="#fde68a"/>
+    <path d="M132 132c12 30 34 62 68 68 22 4 38-8 40-30 2-28-20-48-62-54l-46 16Z" fill="#fde68a"/>
+    <path d="M128 82v102" stroke="#111827" stroke-width="10" stroke-linecap="round"/>
+    <path d="M126 80 112 56M130 80l14-24" stroke="#111827" stroke-width="6" stroke-linecap="round"/>
   </svg>

@@ -1,11 +1,14 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Asian Elephant</title>
-    <ellipse cx="84" cy="128" rx="32" ry="46" fill="#f2d2a4"/>
-    <ellipse cx="172" cy="128" rx="32" ry="46" fill="#f2d2a4"/>
-    <path d="M92 92c8-30 64-30 72 0" stroke="#4a2f20" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="128" cy="126" r="70" fill="#9a6b4a"/>
-    <circle cx="102" cy="118" r="7" fill="#4a2f20"/><circle cx="154" cy="118" r="7" fill="#4a2f20"/>
-    <path d="M114 136c0 28 2 38 14 64M142 136c0 28-2 38-14 64" stroke="#4a2f20" stroke-width="10" stroke-linecap="round"/>
-    <path d="M118 146c8 10 12 16 10 34" stroke="#f2d2a4" stroke-width="8" stroke-linecap="round"/>
-    <path d="M100 152c10 10 46 10 56 0" stroke="#4a2f20" stroke-width="8" stroke-linecap="round"/>
-    <path d="M104 152c-8 6-14 14-18 24M152 152c8 6 14 14 18 24" stroke="#f2d2a4" stroke-width="6" stroke-linecap="round"/>
+    <ellipse cx="112" cy="150" rx="72" ry="44" fill="#9a6b4a"/>
+    <ellipse cx="174" cy="112" rx="26" ry="36" fill="#f7e7ce"/>
+    <circle cx="176" cy="102" r="26" fill="#9a6b4a"/>
+    <path d="M154 94c8-18 40-18 48 0" stroke="#4a2f20" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="168" cy="100" r="4" fill="#4a2f20"/>
+    <path d="M184 112c0 24-4 38-20 66" stroke="#4a2f20" stroke-width="10" stroke-linecap="round"/>
+    <path d="M182 116c10 8 16 18 18 28" stroke="#f7e7ce" stroke-width="6" stroke-linecap="round"/>
+    <path d="M176 122c-8 8-14 18-16 30" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
+    <rect x="64" y="170" width="16" height="42" rx="8" fill="#4a2f20"/>
+    <rect x="96" y="170" width="16" height="42" rx="8" fill="#4a2f20"/>
+    <rect x="132" y="170" width="16" height="42" rx="8" fill="#4a2f20"/>
+    <rect x="160" y="170" width="16" height="42" rx="8" fill="#4a2f20"/>
   </svg>

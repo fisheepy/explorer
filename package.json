@@ -8,7 +8,8 @@
     "build": "vite build",
     "preview": "vite preview",
     "check:media": "node scripts/check-species-media.mjs",
-    "generate:icons": "node scripts/generate-species-icons.mjs"
+    "generate:icons": "node scripts/generate-species-icons.mjs",
+    "generate:media": "node scripts/generate-species-media.mjs"
   },
   "dependencies": {
     "react": "^18.3.1",

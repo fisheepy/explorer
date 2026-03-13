@@ -1,7 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Red Kangaroo</title>
-    <path d="M74 174c0-54 30-96 70-108 14-4 28 2 38 12-18 4-30 16-32 36 18 8 28 26 28 46 0 22-16 40-40 46-10 2-22-2-34-12v18H76c-6-16-8-28-2-38Z" fill="#b45309"/>
-    <path d="M104 206c18-2 30-12 40-28" stroke="#7c2d12" stroke-width="10" stroke-linecap="round"/>
-    <path d="M122 86 144 50l14 30" fill="#b45309"/>
-    <circle cx="138" cy="102" r="6" fill="#7c2d12"/>
-    <path d="M146 146c10 8 18 8 28 0" stroke="#fdba74" stroke-width="8" stroke-linecap="round"/>
+    <path d="M74 186c0-52 28-96 70-112 18-8 40 0 54 18-20 4-34 18-38 40 20 8 32 26 32 48 0 26-18 46-46 52-16 4-30-2-44-16v18H74Z" fill="#b45309"/>
+    <path d="M126 88 148 44l16 34" fill="#b45309"/>
+    <circle cx="152" cy="100" r="6" fill="#7c2d12"/>
+    <path d="M88 166c-16 10-28 20-36 36" stroke="#7c2d12" stroke-width="10" stroke-linecap="round"/>
+    <path d="M154 146c10 10 20 12 34 4" stroke="#fdba74" stroke-width="8" stroke-linecap="round"/>
   </svg>

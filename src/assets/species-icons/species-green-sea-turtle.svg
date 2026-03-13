@@ -1,11 +1,12 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Green Sea Turtle</title>
-    <ellipse cx="128" cy="132" rx="68" ry="82" fill="#16a34a"/>
-    <ellipse cx="128" cy="132" rx="46" ry="62" fill="#86efac"/>
-    <ellipse cx="128" cy="56" rx="18" ry="14" fill="#16a34a"/>
-    <ellipse cx="72" cy="102" rx="18" ry="12" transform="rotate(-30 72 102)" fill="#16a34a"/>
-    <ellipse cx="184" cy="102" rx="18" ry="12" transform="rotate(30 184 102)" fill="#16a34a"/>
-    <ellipse cx="84" cy="192" rx="18" ry="12" transform="rotate(24 84 192)" fill="#16a34a"/>
-    <ellipse cx="172" cy="192" rx="18" ry="12" transform="rotate(-24 172 192)" fill="#16a34a"/>
+    <ellipse cx="128" cy="134" rx="62" ry="82" fill="#16a34a"/>
+    <ellipse cx="128" cy="134" rx="46" ry="62" fill="#86efac"/>
+    <ellipse cx="128" cy="54" rx="18" ry="16" fill="#16a34a"/>
+    <ellipse cx="72" cy="102" rx="20" ry="14" transform="rotate(-30 72 102)" fill="#16a34a"/>
+    <ellipse cx="184" cy="102" rx="20" ry="14" transform="rotate(30 184 102)" fill="#16a34a"/>
+    <ellipse cx="86" cy="196" rx="20" ry="14" transform="rotate(24 86 196)" fill="#16a34a"/>
+    <ellipse cx="170" cy="196" rx="20" ry="14" transform="rotate(-24 170 196)" fill="#16a34a"/>
+    <path d="M108 108h40M100 132h56M110 156h36" stroke="#166534" stroke-width="7" stroke-linecap="round"/>
     <circle cx="122" cy="54" r="4" fill="#166534"/>
     <circle cx="134" cy="54" r="4" fill="#166534"/>
   </svg>
