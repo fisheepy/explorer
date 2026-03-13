@@ -8,6 +8,12 @@ import { speciesMediaMap } from './data/speciesMedia';
 function SpeciesCard({ species, faded = false }) {
   const risk = riskLegend[species.riskLevel] ?? riskLegend.DD;
 
+  const displayClusters = isSwitching ? [] : distribution.clusters;
+  const displayRange = isSwitching ? null : distribution.range;
+  const displayFocus = isSwitching ? null : distribution.focus;
+  const displayPreviewImages = isSwitching ? [] : selectedPreviewImages;
+  const displayIconUrl = isSwitching ? null : selectedIconUrl;
+
   return (
     <article className={`species-card carousel-card ${faded ? 'faded' : ''}`}>
       <div className="species-card-top">
@@ -241,12 +247,12 @@ function App() {
 
       <section className="globe-wrap">
         <GlobeScene
-          distributionClusters={distribution.clusters}
-          rangePolygon={distribution.range}
-          speciesIconUrl={selectedIconUrl}
+          distributionClusters={displayClusters}
+          rangePolygon={displayRange}
+          speciesIconUrl={displayIconUrl}
           speciesIconLabel={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}
-          autoFocusTarget={distribution.focus}
-          previewImages={selectedPreviewImages}
+          autoFocusTarget={displayFocus}
+          previewImages={displayPreviewImages}
           previewTitle={selectedSpecies?.nameEn ?? selectedSpecies?.nameZh ?? ''}
         />
       </section>
