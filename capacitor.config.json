@@ -1,0 +1,6 @@
+{
+  "appId": "com.yangyang.explorer",
+  "appName": "Explorer",
+  "webDir": "dist",
+  "bundledWebRuntime": false
+}

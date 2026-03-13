@@ -23,6 +23,28 @@ npm install
 npm run dev
 ```
 
+## iPad 本地测试
+项目已接入 Capacitor，可以直接生成并打开 iOS 壳工程。
+
+```bash
+npm install
+npm run ios:sync
+npm run ios:open
+```
+
+打开 Xcode 后按这个顺序做：
+- 选中 `App` target
+- `Signing & Capabilities` 里选择你的 Apple Developer Team
+- 用数据线连上 iPad，确保设备已开启 `Developer Mode`
+- 在 Xcode 顶部选择你的 iPad 作为运行目标
+- 点击 Run，把开发中的 App 装到 iPad 上本地测试
+
+前端代码更新后，重新执行：
+
+```bash
+npm run ios:sync
+```
+
 ## 数据来源说明
 - 分布点位：GBIF Occurrence API
 - 风险等级：IUCN 分类体系（CR/EN/VU/NT/LC/DD/NE）
