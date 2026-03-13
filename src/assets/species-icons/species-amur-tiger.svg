@@ -1,14 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Amur Tiger</title>
-    <ellipse cx="118" cy="150" rx="74" ry="40" fill="#f59e0b"/>
-    <circle cx="178" cy="106" r="28" fill="#f59e0b"/>
-    <path d="M160 90 170 58l18 20ZM196 90l-10-32-18 20Z" fill="#f59e0b"/>
-    <circle cx="170" cy="106" r="4" fill="#111827"/>
-    <circle cx="184" cy="106" r="4" fill="#111827"/>
-    <circle cx="177" cy="116" r="4" fill="#111827"/>
-    <path d="M50 148c-10-20-6-42 16-56" stroke="#fcd34d" stroke-width="14" stroke-linecap="round"/>
-    <path d="M84 132h38M154 132h16" stroke="#111827" stroke-width="5" stroke-linecap="round"/>
-    <rect x="72" y="170" width="14" height="38" rx="7" fill="#111827"/>
-    <rect x="104" y="170" width="14" height="38" rx="7" fill="#111827"/>
-    <rect x="142" y="170" width="14" height="38" rx="7" fill="#111827"/>
-    <rect x="170" y="170" width="14" height="38" rx="7" fill="#111827"/>
+    <path d="M70 98 88 52l24 28H70ZM186 98l-18-46-24 28h42Z" fill="#111827"/>
+    <circle cx="128" cy="138" r="72" fill="#f59e0b"/>
+    <ellipse cx="128" cy="162" rx="30" ry="20" fill="#fde68a"/>
+    <circle cx="104" cy="132" r="6" fill="#111827"/>
+    <circle cx="152" cy="132" r="6" fill="#111827"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="#111827"/>
+    <path d="M88 102 104 120M168 102l-16 18M76 126l22 14M180 126l-22 14M84 154h22M150 154h22" stroke="#111827" stroke-width="10" stroke-linecap="round"/>
+    <path d="M104 178c14 8 34 8 48 0" stroke="#111827" stroke-width="8" stroke-linecap="round"/>
   </svg>

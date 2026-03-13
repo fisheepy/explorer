@@ -5,32 +5,32 @@ import { speciesList } from '../src/data/species.js';
 const OUTPUT_DIR = path.resolve('src/assets/species-icons');
 
 const ICON_CONFIG = {
-  'giant-panda': { kind: 'bear-body', colors: { primary: '#f8fafc', secondary: '#111827', accent: '#dbeafe' } },
-  'snow-leopard': { kind: 'cat-body', colors: { primary: '#d9e2ec', secondary: '#475569', accent: '#94a3b8' } },
-  'amur-tiger': { kind: 'cat-body', colors: { primary: '#f59e0b', secondary: '#111827', accent: '#fcd34d' } },
+  'giant-panda': { kind: 'panda-face', colors: { primary: '#f8fafc', secondary: '#111827', accent: '#dbeafe' } },
+  'snow-leopard': { kind: 'snow-leopard-face', colors: { primary: '#e2e8f0', secondary: '#475569', accent: '#94a3b8' } },
+  'amur-tiger': { kind: 'tiger-face', colors: { primary: '#f59e0b', secondary: '#111827', accent: '#fde68a' } },
   'asian-elephant': { kind: 'elephant-asian', colors: { primary: '#9a6b4a', secondary: '#4a2f20', accent: '#f7e7ce' } },
   'african-elephant': { kind: 'elephant-african', colors: { primary: '#73808c', secondary: '#253140', accent: '#f8fafc' } },
-  'polar-bear': { kind: 'bear-body', colors: { primary: '#f8fafc', secondary: '#475569', accent: '#bfdbfe' } },
+  'polar-bear': { kind: 'bear-face', colors: { primary: '#f8fafc', secondary: '#475569', accent: '#bfdbfe' } },
   'blue-whale': { kind: 'whale-profile', colors: { primary: '#2563eb', secondary: '#1e3a8a', accent: '#93c5fd' } },
   orca: { kind: 'orca-profile', colors: { primary: '#0f172a', secondary: '#f8fafc', accent: '#38bdf8' } },
   'humpback-whale': { kind: 'whale-profile', colors: { primary: '#475569', secondary: '#0f172a', accent: '#cbd5e1' } },
   'green-sea-turtle': { kind: 'turtle-top', colors: { primary: '#16a34a', secondary: '#166534', accent: '#86efac' } },
   'komodo-dragon': { kind: 'lizard-body', colors: { primary: '#78716c', secondary: '#292524', accent: '#ca8a04' } },
-  'king-cobra': { kind: 'cobra-coil', colors: { primary: '#22c55e', secondary: '#166534', accent: '#dcfce7' } },
+  'king-cobra': { kind: 'cobra-hood', colors: { primary: '#22c55e', secondary: '#166534', accent: '#dcfce7' } },
   'saltwater-crocodile': { kind: 'croc-profile', colors: { primary: '#3f6212', secondary: '#1a2e05', accent: '#bef264' } },
   'emperor-penguin': { kind: 'penguin-body', colors: { primary: '#111827', secondary: '#f8fafc', accent: '#f59e0b' } },
   'bald-eagle': { kind: 'eagle-body', colors: { primary: '#7c4a24', secondary: '#f8fafc', accent: '#f59e0b' } },
   albatross: { kind: 'albatross-flight', colors: { primary: '#e2e8f0', secondary: '#64748b', accent: '#38bdf8' } },
   shoebill: { kind: 'shoebill-body', colors: { primary: '#64748b', secondary: '#334155', accent: '#cbd5e1' } },
-  'golden-poison-frog': { kind: 'frog-body', colors: { primary: '#facc15', secondary: '#854d0e', accent: '#fde68a' } },
-  axolotl: { kind: 'axolotl-body', colors: { primary: '#f9a8d4', secondary: '#be185d', accent: '#fecdd3' } },
-  'red-eyed-tree-frog': { kind: 'frog-body', colors: { primary: '#22c55e', secondary: '#ef4444', accent: '#facc15' } },
+  'golden-poison-frog': { kind: 'frog-silhouette', colors: { primary: '#facc15', secondary: '#854d0e', accent: '#fde68a' } },
+  axolotl: { kind: 'axolotl-silhouette', colors: { primary: '#f9a8d4', secondary: '#be185d', accent: '#fecdd3' } },
+  'red-eyed-tree-frog': { kind: 'tree-frog-silhouette', colors: { primary: '#22c55e', secondary: '#ef4444', accent: '#facc15' } },
   'monarch-butterfly': { kind: 'butterfly-open', colors: { primary: '#f97316', secondary: '#111827', accent: '#fde68a' } },
   'honey-bee': { kind: 'bee-body', colors: { primary: '#facc15', secondary: '#111827', accent: '#bfdbfe' } },
   'atlas-moth': { kind: 'moth-open', colors: { primary: '#b45309', secondary: '#78350f', accent: '#fcd34d' } },
   'red-kangaroo': { kind: 'kangaroo-body', colors: { primary: '#b45309', secondary: '#7c2d12', accent: '#fdba74' } },
   koala: { kind: 'koala-body', colors: { primary: '#94a3b8', secondary: '#334155', accent: '#e2e8f0' } },
-  jaguar: { kind: 'cat-body', colors: { primary: '#d97706', secondary: '#111827', accent: '#fde68a' } },
+  jaguar: { kind: 'jaguar-face', colors: { primary: '#d97706', secondary: '#111827', accent: '#fde68a' } },
   capybara: { kind: 'capybara-body', colors: { primary: '#8b5e3c', secondary: '#422006', accent: '#d6b08b' } },
   'red-panda': { kind: 'red-panda-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fef3c7' } },
   orangutan: { kind: 'orangutan-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fdba74' } },
@@ -46,70 +46,107 @@ function svgWrap(title, body) {
   ].join('');
 }
 
-function bearBody({ primary, secondary, accent }) {
+function pandaFace({ primary, secondary, accent }) {
   return `
-    <ellipse cx="126" cy="148" rx="72" ry="46" fill="${primary}"/>
-    <circle cx="170" cy="102" r="30" fill="${primary}"/>
-    <circle cx="156" cy="78" r="12" fill="${secondary}"/>
-    <circle cx="184" cy="78" r="12" fill="${secondary}"/>
-    <ellipse cx="172" cy="110" rx="14" ry="10" fill="${accent}"/>
-    <circle cx="166" cy="102" r="4" fill="${secondary}"/>
-    <circle cx="178" cy="102" r="4" fill="${secondary}"/>
-    <circle cx="172" cy="110" r="4" fill="${secondary}"/>
-    <rect x="74" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="104" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="140" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="170" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
+    <circle cx="128" cy="138" r="72" fill="${primary}"/>
+    <circle cx="82" cy="78" r="24" fill="${secondary}"/>
+    <circle cx="174" cy="78" r="24" fill="${secondary}"/>
+    <ellipse cx="94" cy="132" rx="24" ry="28" fill="${secondary}"/>
+    <ellipse cx="162" cy="132" rx="24" ry="28" fill="${secondary}"/>
+    <ellipse cx="128" cy="156" rx="26" ry="20" fill="${accent}"/>
+    <circle cx="106" cy="134" r="7" fill="${primary}"/>
+    <circle cx="150" cy="134" r="7" fill="${primary}"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="${secondary}"/>
+    <path d="M112 176c10 8 22 12 32 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
-function catBody({ primary, secondary, accent }) {
+function bearFace({ primary, secondary, accent }) {
   return `
-    <ellipse cx="118" cy="150" rx="74" ry="40" fill="${primary}"/>
-    <circle cx="178" cy="106" r="28" fill="${primary}"/>
-    <path d="M160 90 170 58l18 20ZM196 90l-10-32-18 20Z" fill="${primary}"/>
-    <circle cx="170" cy="106" r="4" fill="${secondary}"/>
-    <circle cx="184" cy="106" r="4" fill="${secondary}"/>
-    <circle cx="177" cy="116" r="4" fill="${secondary}"/>
-    <path d="M50 148c-10-20-6-42 16-56" stroke="${accent}" stroke-width="14" stroke-linecap="round"/>
-    <path d="M84 132h38M154 132h16" stroke="${secondary}" stroke-width="5" stroke-linecap="round"/>
-    <rect x="72" y="170" width="14" height="38" rx="7" fill="${secondary}"/>
-    <rect x="104" y="170" width="14" height="38" rx="7" fill="${secondary}"/>
-    <rect x="142" y="170" width="14" height="38" rx="7" fill="${secondary}"/>
-    <rect x="170" y="170" width="14" height="38" rx="7" fill="${secondary}"/>
+    <circle cx="128" cy="136" r="74" fill="${primary}"/>
+    <circle cx="84" cy="82" r="22" fill="${primary}"/>
+    <circle cx="172" cy="82" r="22" fill="${primary}"/>
+    <ellipse cx="128" cy="156" rx="30" ry="22" fill="${accent}"/>
+    <circle cx="104" cy="130" r="6" fill="${secondary}"/>
+    <circle cx="152" cy="130" r="6" fill="${secondary}"/>
+    <ellipse cx="128" cy="154" rx="9" ry="7" fill="${secondary}"/>
+    <path d="M108 176c12 10 28 10 40 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+  `;
+}
+
+function tigerFace({ primary, secondary, accent }) {
+  return `
+    <path d="M70 98 88 52l24 28H70ZM186 98l-18-46-24 28h42Z" fill="${secondary}"/>
+    <circle cx="128" cy="138" r="72" fill="${primary}"/>
+    <ellipse cx="128" cy="162" rx="30" ry="20" fill="${accent}"/>
+    <circle cx="104" cy="132" r="6" fill="${secondary}"/>
+    <circle cx="152" cy="132" r="6" fill="${secondary}"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="${secondary}"/>
+    <path d="M88 102 104 120M168 102l-16 18M76 126l22 14M180 126l-22 14M84 154h22M150 154h22" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
+    <path d="M104 178c14 8 34 8 48 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+  `;
+}
+
+function snowLeopardFace({ primary, secondary, accent }) {
+  return `
+    <path d="M72 98 92 56l22 30H72ZM184 98l-20-42-22 30h42Z" fill="${secondary}"/>
+    <circle cx="128" cy="140" r="70" fill="${primary}"/>
+    <ellipse cx="128" cy="162" rx="28" ry="20" fill="#f8fafc"/>
+    <circle cx="104" cy="134" r="6" fill="${secondary}"/>
+    <circle cx="152" cy="134" r="6" fill="${secondary}"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="${secondary}"/>
+    <circle cx="84" cy="118" r="8" fill="${secondary}"/>
+    <circle cx="98" cy="98" r="7" fill="${secondary}"/>
+    <circle cx="170" cy="118" r="8" fill="${secondary}"/>
+    <circle cx="156" cy="98" r="7" fill="${secondary}"/>
+    <circle cx="112" cy="104" r="6" fill="${secondary}"/>
+    <circle cx="144" cy="104" r="6" fill="${secondary}"/>
+    <path d="M104 178c12 8 36 8 48 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+  `;
+}
+
+function jaguarFace({ primary, secondary, accent }) {
+  return `
+    <path d="M72 98 92 54l24 28H72ZM184 98l-20-44-24 28h44Z" fill="${secondary}"/>
+    <circle cx="128" cy="138" r="72" fill="${primary}"/>
+    <ellipse cx="128" cy="162" rx="30" ry="20" fill="${accent}"/>
+    <circle cx="106" cy="132" r="6" fill="${secondary}"/>
+    <circle cx="150" cy="132" r="6" fill="${secondary}"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="${secondary}"/>
+    <circle cx="84" cy="122" r="8" fill="${secondary}"/>
+    <circle cx="98" cy="100" r="6" fill="${secondary}"/>
+    <circle cx="172" cy="122" r="8" fill="${secondary}"/>
+    <circle cx="158" cy="100" r="6" fill="${secondary}"/>
+    <circle cx="110" cy="104" r="5" fill="${secondary}"/>
+    <circle cx="146" cy="104" r="5" fill="${secondary}"/>
+    <path d="M106 178c12 8 32 8 44 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
 function elephantAsian({ primary, secondary, accent }) {
   return `
-    <ellipse cx="112" cy="150" rx="72" ry="44" fill="${primary}"/>
-    <ellipse cx="174" cy="112" rx="26" ry="36" fill="${accent}"/>
-    <circle cx="176" cy="102" r="26" fill="${primary}"/>
-    <path d="M154 94c8-18 40-18 48 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
-    <circle cx="168" cy="100" r="4" fill="${secondary}"/>
-    <path d="M184 112c0 24-4 38-20 66" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
-    <path d="M182 116c10 8 16 18 18 28" stroke="${accent}" stroke-width="6" stroke-linecap="round"/>
-    <path d="M176 122c-8 8-14 18-16 30" stroke="#f8fafc" stroke-width="5" stroke-linecap="round"/>
-    <rect x="64" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="96" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="132" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="160" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
+    <ellipse cx="124" cy="122" rx="44" ry="58" fill="${accent}"/>
+    <ellipse cx="168" cy="122" rx="34" ry="48" fill="${accent}"/>
+    <circle cx="138" cy="128" r="64" fill="${primary}"/>
+    <path d="M100 98c8-22 26-34 42-34 18 0 34 12 40 32" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
+    <path d="M144 142c0 26-4 42-18 72" stroke="${secondary}" stroke-width="14" stroke-linecap="round"/>
+    <path d="M130 142c8 8 18 10 28 6" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="118" cy="126" r="5" fill="${secondary}"/>
+    <circle cx="154" cy="126" r="5" fill="${secondary}"/>
+    <path d="M116 170c8 8 34 8 42 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
 function elephantAfrican({ primary, secondary, accent }) {
   return `
-    <ellipse cx="110" cy="150" rx="74" ry="46" fill="${primary}"/>
-    <ellipse cx="162" cy="114" rx="34" ry="46" fill="${accent}"/>
-    <ellipse cx="190" cy="114" rx="34" ry="46" fill="${accent}"/>
-    <circle cx="178" cy="104" r="28" fill="${primary}"/>
-    <circle cx="170" cy="102" r="4" fill="${secondary}"/>
-    <path d="M186 114c0 24-2 42-14 72" stroke="${secondary}" stroke-width="12" stroke-linecap="round"/>
-    <path d="M174 120c-8 10-12 20-14 34M188 120c10 10 16 22 18 36" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
-    <rect x="58" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="90" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="126" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
-    <rect x="156" y="170" width="16" height="42" rx="8" fill="${secondary}"/>
+    <ellipse cx="100" cy="124" rx="46" ry="62" fill="${accent}"/>
+    <ellipse cx="172" cy="124" rx="46" ry="62" fill="${accent}"/>
+    <circle cx="136" cy="130" r="62" fill="${primary}"/>
+    <path d="M142 144c0 28-2 48-16 80" stroke="${secondary}" stroke-width="16" stroke-linecap="round"/>
+    <path d="M124 144c-10 10-16 22-18 38M152 144c10 10 16 22 18 38" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="118" cy="126" r="5" fill="${secondary}"/>
+    <circle cx="154" cy="126" r="5" fill="${secondary}"/>
+    <path d="M114 170c10 10 36 10 46 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
@@ -156,14 +193,14 @@ function lizardBody({ primary, secondary, accent }) {
   `;
 }
 
-function cobraCoil({ primary, secondary, accent }) {
+function cobraHood({ primary, secondary, accent }) {
   return `
-    <path d="M128 54c26 0 50 18 50 44 0 18-12 34-30 40 18 8 28 26 28 48 0 28-20 48-48 48s-48-20-48-48c0-22 10-40 28-48-18-6-30-22-30-40 0-26 24-44 50-44Z" fill="${primary}"/>
-    <path d="M94 108c10-20 24-28 34-28M162 108c-10-20-24-28-34-28" stroke="${accent}" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="118" cy="112" r="6" fill="${secondary}"/>
-    <circle cx="138" cy="112" r="6" fill="${secondary}"/>
-    <path d="M128 126c0 20 0 28 10 44 4 6 10 12 22 18" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
-    <path d="M108 180c12 12 28 12 40 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+    <path d="M128 34c34 0 62 24 62 56 0 22-14 40-36 50 8 12 12 28 12 48 0 18-6 34-18 50h-28c18-16 28-34 28-56 0-22-10-40-28-56 18-8 30-20 30-38 0-12-8-18-22-18s-22 6-22 18c0 18 12 30 30 38-18 16-28 34-28 56 0 22 10 40 28 56H108c-12-16-18-32-18-50 0-20 4-36 12-48-22-10-36-28-36-50 0-32 28-56 62-56Z" fill="${primary}"/>
+    <path d="M98 112c12-20 30-30 30-30M158 112c-12-20-30-30-30-30" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="116" cy="108" r="6" fill="${secondary}"/>
+    <circle cx="140" cy="108" r="6" fill="${secondary}"/>
+    <path d="M128 126v62" stroke="${secondary}" stroke-width="12" stroke-linecap="round"/>
+    <path d="M104 204c12 12 36 12 48 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
@@ -216,24 +253,36 @@ function shoebillBody({ primary, secondary, accent }) {
   `;
 }
 
-function frogBody({ primary, secondary, accent }) {
+function frogSilhouette({ primary, secondary, accent }) {
   return `
-    <circle cx="96" cy="86" r="20" fill="${accent}"/>
-    <circle cx="160" cy="86" r="20" fill="${accent}"/>
-    <ellipse cx="128" cy="138" rx="70" ry="72" fill="${primary}"/>
-    <circle cx="96" cy="86" r="8" fill="${secondary}"/>
-    <circle cx="160" cy="86" r="8" fill="${secondary}"/>
-    <path d="M96 188 72 208M160 188l24 20M104 164 72 174M152 164l32 10" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
-    <path d="M102 154c12 10 40 10 52 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="92" cy="88" r="18" fill="${accent}"/>
+    <circle cx="164" cy="88" r="18" fill="${accent}"/>
+    <path d="M68 146c0-38 26-68 60-68s60 30 60 68c0 18-6 34-16 48l20 24-20 8-24-26c-6 2-12 4-20 4-8 0-14-2-20-4l-24 26-20-8 20-24c-10-14-16-30-16-48Z" fill="${primary}"/>
+    <circle cx="92" cy="88" r="8" fill="${secondary}"/>
+    <circle cx="164" cy="88" r="8" fill="${secondary}"/>
+    <path d="M104 156c10 8 38 8 48 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
   `;
 }
 
-function axolotlBody({ primary, secondary, accent }) {
+function treeFrogSilhouette({ primary, secondary, accent }) {
   return `
-    <ellipse cx="122" cy="136" rx="64" ry="42" fill="${primary}"/>
-    <path d="M80 106 42 84M82 120 40 120M80 134 42 156" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
-    <path d="M176 106 214 84M174 120l42 0M176 134l38 22" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
-    <path d="M148 136c24 10 34 26 40 46" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="94" cy="86" r="20" fill="${secondary}"/>
+    <circle cx="162" cy="86" r="20" fill="${secondary}"/>
+    <path d="M74 144c0-36 24-64 54-64 34 0 58 28 58 64 0 16-4 30-12 42l20 24-18 10-22-22-12 18h-28l-12-18-22 22-18-10 20-24c-8-12-12-26-12-42Z" fill="${primary}"/>
+    <circle cx="94" cy="86" r="10" fill="#f8fafc"/>
+    <circle cx="162" cy="86" r="10" fill="#f8fafc"/>
+    <circle cx="94" cy="86" r="5" fill="${secondary}"/>
+    <circle cx="162" cy="86" r="5" fill="${secondary}"/>
+    <path d="M106 152c10 8 34 8 44 0" stroke="${accent}" stroke-width="8" stroke-linecap="round"/>
+  `;
+}
+
+function axolotlSilhouette({ primary, secondary, accent }) {
+  return `
+    <ellipse cx="126" cy="136" rx="66" ry="42" fill="${primary}"/>
+    <path d="M82 106 42 84M82 122 36 122M82 138 42 162" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
+    <path d="M172 106 212 84M172 122h46M172 138l40 24" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
+    <path d="M152 138c30 10 40 26 48 48" stroke="${secondary}" stroke-width="10" stroke-linecap="round"/>
     <circle cx="104" cy="128" r="6" fill="${secondary}"/>
     <circle cx="136" cy="128" r="6" fill="${secondary}"/>
     <path d="M106 150c10 8 22 8 32 0" stroke="${secondary}" stroke-width="8" stroke-linecap="round"/>
@@ -348,22 +397,26 @@ function porpoiseProfile({ primary, secondary, accent }) {
 }
 
 const DRAWERS = {
-  'bear-body': bearBody,
-  'cat-body': catBody,
+  'panda-face': pandaFace,
+  'bear-face': bearFace,
+  'tiger-face': tigerFace,
+  'snow-leopard-face': snowLeopardFace,
+  'jaguar-face': jaguarFace,
   'elephant-asian': elephantAsian,
   'elephant-african': elephantAfrican,
   'whale-profile': whaleProfile,
   'orca-profile': orcaProfile,
   'turtle-top': turtleTop,
   'lizard-body': lizardBody,
-  'cobra-coil': cobraCoil,
+  'cobra-hood': cobraHood,
   'croc-profile': crocProfile,
   'penguin-body': penguinBody,
   'eagle-body': eagleBody,
   'albatross-flight': albatrossFlight,
   'shoebill-body': shoebillBody,
-  'frog-body': frogBody,
-  'axolotl-body': axolotlBody,
+  'frog-silhouette': frogSilhouette,
+  'tree-frog-silhouette': treeFrogSilhouette,
+  'axolotl-silhouette': axolotlSilhouette,
   'butterfly-open': butterflyOpen,
   'moth-open': mothOpen,
   'bee-body': beeBody,

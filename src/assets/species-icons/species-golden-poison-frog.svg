@@ -1,9 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Golden Poison Frog</title>
-    <circle cx="96" cy="86" r="20" fill="#fde68a"/>
-    <circle cx="160" cy="86" r="20" fill="#fde68a"/>
-    <ellipse cx="128" cy="138" rx="70" ry="72" fill="#facc15"/>
-    <circle cx="96" cy="86" r="8" fill="#854d0e"/>
-    <circle cx="160" cy="86" r="8" fill="#854d0e"/>
-    <path d="M96 188 72 208M160 188l24 20M104 164 72 174M152 164l32 10" stroke="#854d0e" stroke-width="8" stroke-linecap="round"/>
-    <path d="M102 154c12 10 40 10 52 0" stroke="#854d0e" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="92" cy="88" r="18" fill="#fde68a"/>
+    <circle cx="164" cy="88" r="18" fill="#fde68a"/>
+    <path d="M68 146c0-38 26-68 60-68s60 30 60 68c0 18-6 34-16 48l20 24-20 8-24-26c-6 2-12 4-20 4-8 0-14-2-20-4l-24 26-20-8 20-24c-10-14-16-30-16-48Z" fill="#facc15"/>
+    <circle cx="92" cy="88" r="8" fill="#854d0e"/>
+    <circle cx="164" cy="88" r="8" fill="#854d0e"/>
+    <path d="M104 156c10 8 38 8 48 0" stroke="#854d0e" stroke-width="8" stroke-linecap="round"/>
   </svg>

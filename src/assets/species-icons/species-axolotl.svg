@@ -1,8 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Axolotl</title>
-    <ellipse cx="122" cy="136" rx="64" ry="42" fill="#f9a8d4"/>
-    <path d="M80 106 42 84M82 120 40 120M80 134 42 156" stroke="#fecdd3" stroke-width="12" stroke-linecap="round"/>
-    <path d="M176 106 214 84M174 120l42 0M176 134l38 22" stroke="#fecdd3" stroke-width="12" stroke-linecap="round"/>
-    <path d="M148 136c24 10 34 26 40 46" stroke="#be185d" stroke-width="8" stroke-linecap="round"/>
+    <ellipse cx="126" cy="136" rx="66" ry="42" fill="#f9a8d4"/>
+    <path d="M82 106 42 84M82 122 36 122M82 138 42 162" stroke="#fecdd3" stroke-width="12" stroke-linecap="round"/>
+    <path d="M172 106 212 84M172 122h46M172 138l40 24" stroke="#fecdd3" stroke-width="12" stroke-linecap="round"/>
+    <path d="M152 138c30 10 40 26 48 48" stroke="#be185d" stroke-width="10" stroke-linecap="round"/>
     <circle cx="104" cy="128" r="6" fill="#be185d"/>
     <circle cx="136" cy="128" r="6" fill="#be185d"/>
     <path d="M106 150c10 8 22 8 32 0" stroke="#be185d" stroke-width="8" stroke-linecap="round"/>

@@ -1,13 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>African Savanna Elephant</title>
-    <ellipse cx="110" cy="150" rx="74" ry="46" fill="#73808c"/>
-    <ellipse cx="162" cy="114" rx="34" ry="46" fill="#f8fafc"/>
-    <ellipse cx="190" cy="114" rx="34" ry="46" fill="#f8fafc"/>
-    <circle cx="178" cy="104" r="28" fill="#73808c"/>
-    <circle cx="170" cy="102" r="4" fill="#253140"/>
-    <path d="M186 114c0 24-2 42-14 72" stroke="#253140" stroke-width="12" stroke-linecap="round"/>
-    <path d="M174 120c-8 10-12 20-14 34M188 120c10 10 16 22 18 36" stroke="#f8fafc" stroke-width="6" stroke-linecap="round"/>
-    <rect x="58" y="170" width="16" height="42" rx="8" fill="#253140"/>
-    <rect x="90" y="170" width="16" height="42" rx="8" fill="#253140"/>
-    <rect x="126" y="170" width="16" height="42" rx="8" fill="#253140"/>
-    <rect x="156" y="170" width="16" height="42" rx="8" fill="#253140"/>
+    <ellipse cx="100" cy="124" rx="46" ry="62" fill="#f8fafc"/>
+    <ellipse cx="172" cy="124" rx="46" ry="62" fill="#f8fafc"/>
+    <circle cx="136" cy="130" r="62" fill="#73808c"/>
+    <path d="M142 144c0 28-2 48-16 80" stroke="#253140" stroke-width="16" stroke-linecap="round"/>
+    <path d="M124 144c-10 10-16 22-18 38M152 144c10 10 16 22 18 38" stroke="#f8fafc" stroke-width="7" stroke-linecap="round"/>
+    <circle cx="118" cy="126" r="5" fill="#253140"/>
+    <circle cx="154" cy="126" r="5" fill="#253140"/>
+    <path d="M114 170c10 10 36 10 46 0" stroke="#253140" stroke-width="8" stroke-linecap="round"/>
   </svg>

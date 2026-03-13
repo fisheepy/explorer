@@ -1,9 +1,10 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Red-eyed Tree Frog</title>
-    <circle cx="96" cy="86" r="20" fill="#facc15"/>
-    <circle cx="160" cy="86" r="20" fill="#facc15"/>
-    <ellipse cx="128" cy="138" rx="70" ry="72" fill="#22c55e"/>
-    <circle cx="96" cy="86" r="8" fill="#ef4444"/>
-    <circle cx="160" cy="86" r="8" fill="#ef4444"/>
-    <path d="M96 188 72 208M160 188l24 20M104 164 72 174M152 164l32 10" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>
-    <path d="M102 154c12 10 40 10 52 0" stroke="#ef4444" stroke-width="8" stroke-linecap="round"/>
+    <circle cx="94" cy="86" r="20" fill="#ef4444"/>
+    <circle cx="162" cy="86" r="20" fill="#ef4444"/>
+    <path d="M74 144c0-36 24-64 54-64 34 0 58 28 58 64 0 16-4 30-12 42l20 24-18 10-22-22-12 18h-28l-12-18-22 22-18-10 20-24c-8-12-12-26-12-42Z" fill="#22c55e"/>
+    <circle cx="94" cy="86" r="10" fill="#f8fafc"/>
+    <circle cx="162" cy="86" r="10" fill="#f8fafc"/>
+    <circle cx="94" cy="86" r="5" fill="#ef4444"/>
+    <circle cx="162" cy="86" r="5" fill="#ef4444"/>
+    <path d="M106 152c10 8 34 8 44 0" stroke="#facc15" stroke-width="8" stroke-linecap="round"/>
   </svg>

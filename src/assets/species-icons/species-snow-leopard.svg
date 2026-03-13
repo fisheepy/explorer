@@ -1,14 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Snow Leopard</title>
-    <ellipse cx="118" cy="150" rx="74" ry="40" fill="#d9e2ec"/>
-    <circle cx="178" cy="106" r="28" fill="#d9e2ec"/>
-    <path d="M160 90 170 58l18 20ZM196 90l-10-32-18 20Z" fill="#d9e2ec"/>
-    <circle cx="170" cy="106" r="4" fill="#475569"/>
-    <circle cx="184" cy="106" r="4" fill="#475569"/>
-    <circle cx="177" cy="116" r="4" fill="#475569"/>
-    <path d="M50 148c-10-20-6-42 16-56" stroke="#94a3b8" stroke-width="14" stroke-linecap="round"/>
-    <path d="M84 132h38M154 132h16" stroke="#475569" stroke-width="5" stroke-linecap="round"/>
-    <rect x="72" y="170" width="14" height="38" rx="7" fill="#475569"/>
-    <rect x="104" y="170" width="14" height="38" rx="7" fill="#475569"/>
-    <rect x="142" y="170" width="14" height="38" rx="7" fill="#475569"/>
-    <rect x="170" y="170" width="14" height="38" rx="7" fill="#475569"/>
+    <path d="M72 98 92 56l22 30H72ZM184 98l-20-42-22 30h42Z" fill="#475569"/>
+    <circle cx="128" cy="140" r="70" fill="#e2e8f0"/>
+    <ellipse cx="128" cy="162" rx="28" ry="20" fill="#f8fafc"/>
+    <circle cx="104" cy="134" r="6" fill="#475569"/>
+    <circle cx="152" cy="134" r="6" fill="#475569"/>
+    <ellipse cx="128" cy="156" rx="8" ry="6" fill="#475569"/>
+    <circle cx="84" cy="118" r="8" fill="#475569"/>
+    <circle cx="98" cy="98" r="7" fill="#475569"/>
+    <circle cx="170" cy="118" r="8" fill="#475569"/>
+    <circle cx="156" cy="98" r="7" fill="#475569"/>
+    <circle cx="112" cy="104" r="6" fill="#475569"/>
+    <circle cx="144" cy="104" r="6" fill="#475569"/>
+    <path d="M104 178c12 8 36 8 48 0" stroke="#475569" stroke-width="8" stroke-linecap="round"/>
   </svg>

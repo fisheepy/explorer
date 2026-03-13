@@ -105,14 +105,14 @@ h1 {
 
 .globe-marker {
   position: absolute;
-  width: 46px;
-  height: 46px;
-  margin-left: -23px;
-  margin-top: -23px;
-  border: 1px solid rgba(255, 221, 160, 0.9);
-  border-radius: 16px;
-  background: rgba(5, 14, 32, 0.94);
-  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.38), 0 10px 18px rgba(0, 0, 0, 0.35);
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(5, 14, 32, 0.92);
+  box-shadow: 0 0 0 2px rgba(245, 158, 11, 0.92), 0 10px 18px rgba(0, 0, 0, 0.35);
   transform: scale(var(--marker-scale, 1));
   opacity: 0;
   transition: opacity 0.16s ease, transform 0.16s ease;
@@ -123,13 +123,10 @@ h1 {
 }
 
 .globe-marker-icon {
-  width: 38px;
-  height: 38px;
+  width: 36px;
+  height: 36px;
   display: block;
-  object-fit: contain;
-  object-position: center;
   pointer-events: none;
-  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.28));
 }
 
 .globe-marker-dot {
