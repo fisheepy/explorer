@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Monarch Butterfly</title>
+    <circle cx="128" cy="128" r="112" fill="#0f766e"/>
+    <circle cx="128" cy="128" r="104" fill="#0f766e" opacity="0.92"/>
+  
     <path d="M124 128c-14-34-44-68-82-68-18 0-32 14-32 32 0 40 32 70 86 74l28-38Z" fill="#f97316"/>
     <path d="M132 128c14-34 44-68 82-68 18 0 32 14 32 32 0 40-32 70-86 74l-28-38Z" fill="#f97316"/>
     <path d="M124 132c-12 30-34 62-68 68-22 4-38-8-40-30-2-28 20-48 62-54l46 16Z" fill="#fde68a"/>

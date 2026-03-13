@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Golden Poison Frog</title>
+    <circle cx="128" cy="128" r="112" fill="#1d4ed8"/>
+    <circle cx="128" cy="128" r="104" fill="#1d4ed8" opacity="0.92"/>
+  
     <circle cx="92" cy="88" r="18" fill="#fde68a"/>
     <circle cx="164" cy="88" r="18" fill="#fde68a"/>
     <path d="M68 146c0-38 26-68 60-68s60 30 60 68c0 18-6 34-16 48l20 24-20 8-24-26c-6 2-12 4-20 4-8 0-14-2-20-4l-24 26-20-8 20-24c-10-14-16-30-16-48Z" fill="#facc15"/>

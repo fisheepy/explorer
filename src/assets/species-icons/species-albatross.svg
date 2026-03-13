@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Wandering Albatross</title>
+    <circle cx="128" cy="128" r="112" fill="#b45309"/>
+    <circle cx="128" cy="128" r="104" fill="#b45309" opacity="0.92"/>
+  
     <path d="M18 138c32-28 72-46 120-44l24 18c20-12 48-16 76-8-16 14-36 24-60 30-14 18-34 32-62 42-32 12-74 8-98-8Z" fill="#e2e8f0"/>
     <path d="M124 126c20 8 44 8 72 0" stroke="#38bdf8" stroke-width="7" stroke-linecap="round"/>
     <circle cx="134" cy="114" r="5" fill="#64748b"/>

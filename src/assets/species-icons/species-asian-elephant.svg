@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Asian Elephant</title>
+    <circle cx="128" cy="128" r="112" fill="#0f766e"/>
+    <circle cx="128" cy="128" r="104" fill="#0f766e" opacity="0.92"/>
+  
     <ellipse cx="124" cy="122" rx="44" ry="58" fill="#f7e7ce"/>
     <ellipse cx="168" cy="122" rx="34" ry="48" fill="#f7e7ce"/>
     <circle cx="138" cy="128" r="64" fill="#9a6b4a"/>

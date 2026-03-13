@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Polar Bear</title>
+    <circle cx="128" cy="128" r="112" fill="#0f4c81"/>
+    <circle cx="128" cy="128" r="104" fill="#0f4c81" opacity="0.92"/>
+  
     <circle cx="128" cy="136" r="74" fill="#f8fafc"/>
     <circle cx="84" cy="82" r="22" fill="#f8fafc"/>
     <circle cx="172" cy="82" r="22" fill="#f8fafc"/>

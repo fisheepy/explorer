@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Red-eyed Tree Frog</title>
+    <circle cx="128" cy="128" r="112" fill="#4338ca"/>
+    <circle cx="128" cy="128" r="104" fill="#4338ca" opacity="0.92"/>
+  
     <circle cx="94" cy="86" r="20" fill="#ef4444"/>
     <circle cx="162" cy="86" r="20" fill="#ef4444"/>
     <path d="M74 144c0-36 24-64 54-64 34 0 58 28 58 64 0 16-4 30-12 42l20 24-18 10-22-22-12 18h-28l-12-18-22 22-18-10 20-24c-8-12-12-26-12-42Z" fill="#22c55e"/>

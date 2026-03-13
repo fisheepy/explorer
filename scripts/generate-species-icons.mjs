@@ -8,39 +8,40 @@ const ICON_CONFIG = {
   'giant-panda': { kind: 'panda-sticker', colors: { primary: '#f8fafc', secondary: '#111827', accent: '#e2e8f0', background: '#f97316' } },
   'snow-leopard': { kind: 'snow-leopard-sticker', colors: { primary: '#dbe4ef', secondary: '#475569', accent: '#f8fafc', background: '#0f766e' } },
   'amur-tiger': { kind: 'tiger-sticker', colors: { primary: '#f59e0b', secondary: '#111827', accent: '#fde68a', background: '#1d4ed8' } },
-  'asian-elephant': { kind: 'elephant-asian', colors: { primary: '#9a6b4a', secondary: '#4a2f20', accent: '#f7e7ce' } },
-  'african-elephant': { kind: 'elephant-african', colors: { primary: '#73808c', secondary: '#253140', accent: '#f8fafc' } },
-  'polar-bear': { kind: 'bear-face', colors: { primary: '#f8fafc', secondary: '#475569', accent: '#bfdbfe' } },
+  'asian-elephant': { kind: 'elephant-asian', colors: { primary: '#9a6b4a', secondary: '#4a2f20', accent: '#f7e7ce', background: '#0f766e' } },
+  'african-elephant': { kind: 'elephant-african', colors: { primary: '#73808c', secondary: '#253140', accent: '#f8fafc', background: '#ea580c' } },
+  'polar-bear': { kind: 'bear-face', colors: { primary: '#f8fafc', secondary: '#475569', accent: '#bfdbfe', background: '#0f4c81' } },
   'blue-whale': { kind: 'blue-whale-sticker', colors: { primary: '#2563eb', secondary: '#1e3a8a', accent: '#93c5fd', background: '#f59e0b' } },
-  orca: { kind: 'orca-profile', colors: { primary: '#0f172a', secondary: '#f8fafc', accent: '#38bdf8' } },
-  'humpback-whale': { kind: 'whale-profile', colors: { primary: '#475569', secondary: '#0f172a', accent: '#cbd5e1' } },
-  'green-sea-turtle': { kind: 'turtle-top', colors: { primary: '#16a34a', secondary: '#166534', accent: '#86efac' } },
-  'komodo-dragon': { kind: 'lizard-body', colors: { primary: '#78716c', secondary: '#292524', accent: '#ca8a04' } },
+  orca: { kind: 'orca-profile', colors: { primary: '#0f172a', secondary: '#f8fafc', accent: '#38bdf8', background: '#f97316' } },
+  'humpback-whale': { kind: 'whale-profile', colors: { primary: '#475569', secondary: '#0f172a', accent: '#cbd5e1', background: '#f59e0b' } },
+  'green-sea-turtle': { kind: 'turtle-top', colors: { primary: '#16a34a', secondary: '#166534', accent: '#86efac', background: '#7c3aed' } },
+  'komodo-dragon': { kind: 'lizard-body', colors: { primary: '#78716c', secondary: '#292524', accent: '#ca8a04', background: '#0f766e' } },
   'king-cobra': { kind: 'cobra-sticker', colors: { primary: '#22c55e', secondary: '#166534', accent: '#dcfce7', background: '#7c3aed' } },
-  'saltwater-crocodile': { kind: 'croc-profile', colors: { primary: '#3f6212', secondary: '#1a2e05', accent: '#bef264' } },
-  'emperor-penguin': { kind: 'penguin-body', colors: { primary: '#111827', secondary: '#f8fafc', accent: '#f59e0b' } },
-  'bald-eagle': { kind: 'eagle-body', colors: { primary: '#7c4a24', secondary: '#f8fafc', accent: '#f59e0b' } },
-  albatross: { kind: 'albatross-flight', colors: { primary: '#e2e8f0', secondary: '#64748b', accent: '#38bdf8' } },
-  shoebill: { kind: 'shoebill-body', colors: { primary: '#64748b', secondary: '#334155', accent: '#cbd5e1' } },
-  'golden-poison-frog': { kind: 'frog-silhouette', colors: { primary: '#facc15', secondary: '#854d0e', accent: '#fde68a' } },
-  axolotl: { kind: 'axolotl-silhouette', colors: { primary: '#f9a8d4', secondary: '#be185d', accent: '#fecdd3' } },
-  'red-eyed-tree-frog': { kind: 'tree-frog-silhouette', colors: { primary: '#22c55e', secondary: '#ef4444', accent: '#facc15' } },
-  'monarch-butterfly': { kind: 'butterfly-open', colors: { primary: '#f97316', secondary: '#111827', accent: '#fde68a' } },
-  'honey-bee': { kind: 'bee-body', colors: { primary: '#facc15', secondary: '#111827', accent: '#bfdbfe' } },
-  'atlas-moth': { kind: 'moth-open', colors: { primary: '#b45309', secondary: '#78350f', accent: '#fcd34d' } },
-  'red-kangaroo': { kind: 'kangaroo-body', colors: { primary: '#b45309', secondary: '#7c2d12', accent: '#fdba74' } },
-  koala: { kind: 'koala-body', colors: { primary: '#94a3b8', secondary: '#334155', accent: '#e2e8f0' } },
-  jaguar: { kind: 'jaguar-face', colors: { primary: '#d97706', secondary: '#111827', accent: '#fde68a' } },
-  capybara: { kind: 'capybara-body', colors: { primary: '#8b5e3c', secondary: '#422006', accent: '#d6b08b' } },
-  'red-panda': { kind: 'red-panda-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fef3c7' } },
-  orangutan: { kind: 'orangutan-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fdba74' } },
-  vaquita: { kind: 'porpoise-profile', colors: { primary: '#64748b', secondary: '#0f172a', accent: '#e2e8f0' } },
+  'saltwater-crocodile': { kind: 'croc-profile', colors: { primary: '#3f6212', secondary: '#1a2e05', accent: '#bef264', background: '#2563eb' } },
+  'emperor-penguin': { kind: 'penguin-body', colors: { primary: '#111827', secondary: '#f8fafc', accent: '#f59e0b', background: '#0f766e' } },
+  'bald-eagle': { kind: 'eagle-body', colors: { primary: '#7c4a24', secondary: '#f8fafc', accent: '#f59e0b', background: '#1d4ed8' } },
+  albatross: { kind: 'albatross-flight', colors: { primary: '#e2e8f0', secondary: '#64748b', accent: '#38bdf8', background: '#b45309' } },
+  shoebill: { kind: 'shoebill-body', colors: { primary: '#64748b', secondary: '#334155', accent: '#cbd5e1', background: '#f59e0b' } },
+  'golden-poison-frog': { kind: 'frog-silhouette', colors: { primary: '#facc15', secondary: '#854d0e', accent: '#fde68a', background: '#1d4ed8' } },
+  axolotl: { kind: 'axolotl-silhouette', colors: { primary: '#f9a8d4', secondary: '#be185d', accent: '#fecdd3', background: '#0f766e' } },
+  'red-eyed-tree-frog': { kind: 'tree-frog-silhouette', colors: { primary: '#22c55e', secondary: '#ef4444', accent: '#facc15', background: '#4338ca' } },
+  'monarch-butterfly': { kind: 'butterfly-open', colors: { primary: '#f97316', secondary: '#111827', accent: '#fde68a', background: '#0f766e' } },
+  'honey-bee': { kind: 'bee-body', colors: { primary: '#facc15', secondary: '#111827', accent: '#bfdbfe', background: '#7c3aed' } },
+  'atlas-moth': { kind: 'moth-open', colors: { primary: '#b45309', secondary: '#78350f', accent: '#fcd34d', background: '#0f4c81' } },
+  'red-kangaroo': { kind: 'kangaroo-body', colors: { primary: '#b45309', secondary: '#7c2d12', accent: '#fdba74', background: '#0f766e' } },
+  koala: { kind: 'koala-body', colors: { primary: '#94a3b8', secondary: '#334155', accent: '#e2e8f0', background: '#f97316' } },
+  jaguar: { kind: 'jaguar-face', colors: { primary: '#d97706', secondary: '#111827', accent: '#fde68a', background: '#0f766e' } },
+  capybara: { kind: 'capybara-body', colors: { primary: '#8b5e3c', secondary: '#422006', accent: '#d6b08b', background: '#2563eb' } },
+  'red-panda': { kind: 'red-panda-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fef3c7', background: '#0f766e' } },
+  orangutan: { kind: 'orangutan-body', colors: { primary: '#ea580c', secondary: '#7c2d12', accent: '#fdba74', background: '#1d4ed8' } },
+  vaquita: { kind: 'porpoise-profile', colors: { primary: '#64748b', secondary: '#0f172a', accent: '#e2e8f0', background: '#f59e0b' } },
 };
 
-function svgWrap(title, body) {
+function svgWrap(title, body, background) {
   return [
     '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">',
     `<title>${title}</title>`,
+    badgeBackground(background),
     body,
     '</svg>',
   ].join('');
@@ -55,7 +56,6 @@ function badgeBackground(color) {
 
 function pandaSticker({ primary, secondary, accent, background }) {
   return `
-    ${badgeBackground(background)}
     <circle cx="128" cy="138" r="74" fill="${primary}"/>
     <circle cx="82" cy="74" r="24" fill="${secondary}"/>
     <circle cx="174" cy="74" r="24" fill="${secondary}"/>
@@ -84,7 +84,6 @@ function bearFace({ primary, secondary, accent }) {
 
 function tigerSticker({ primary, secondary, accent, background }) {
   return `
-    ${badgeBackground(background)}
     <path d="M74 96 92 48l26 30H74ZM182 96l-18-48-26 30h44Z" fill="${secondary}"/>
     <circle cx="128" cy="138" r="74" fill="${primary}"/>
     <ellipse cx="128" cy="164" rx="32" ry="22" fill="${accent}"/>
@@ -98,7 +97,6 @@ function tigerSticker({ primary, secondary, accent, background }) {
 
 function snowLeopardSticker({ primary, secondary, accent, background }) {
   return `
-    ${badgeBackground(background)}
     <path d="M74 98 94 52l24 32H74ZM182 98l-20-46-24 32h44Z" fill="${secondary}"/>
     <circle cx="128" cy="140" r="72" fill="${primary}"/>
     <ellipse cx="128" cy="164" rx="30" ry="22" fill="${accent}"/>
@@ -173,7 +171,6 @@ function whaleProfile({ primary, secondary, accent }) {
 
 function blueWhaleSticker({ primary, secondary, accent, background }) {
   return `
-    ${badgeBackground(background)}
     <path d="M36 142c26-40 72-60 138-56 24 2 40 10 52 24-14 8-22 20-24 34-12 4-22 4-34 0-10 20-28 36-64 44-44 10-88-6-100-34-4-8 0-10 32-12Z" fill="${primary}"/>
     <path d="M152 86c16-18 34-28 58-30-8 12-10 24-8 40" fill="${primary}"/>
     <path d="M84 150c20 12 48 14 68 4" stroke="${accent}" stroke-width="10" stroke-linecap="round"/>
@@ -218,7 +215,6 @@ function lizardBody({ primary, secondary, accent }) {
 
 function cobraSticker({ primary, secondary, accent, background }) {
   return `
-    ${badgeBackground(background)}
     <path d="M128 40c30 0 56 22 56 54 0 22-12 40-32 52 10 12 16 30 16 52 0 14-2 28-8 40h-64c-6-12-8-26-8-40 0-22 6-40 16-52-20-12-32-30-32-52 0-32 26-54 56-54Z" fill="${primary}"/>
     <path d="M94 112c14-18 24-28 34-32M162 112c-14-18-24-28-34-32" stroke="${accent}" stroke-width="12" stroke-linecap="round"/>
     <circle cx="114" cy="108" r="6" fill="${secondary}"/>
@@ -463,7 +459,7 @@ async function main() {
     const draw = DRAWERS[config.kind];
     if (!draw) throw new Error(`Missing drawer for ${config.kind}`);
 
-    const svg = svgWrap(species.nameEn, draw(config.colors));
+    const svg = svgWrap(species.nameEn, draw(config.colors), config.colors.background ?? '#0f172a');
     const outputPath = path.join(OUTPUT_DIR, `species-${species.id}.svg`);
     await fs.writeFile(outputPath, `${svg}\n`, 'utf8');
     console.log(`generated ${path.relative(process.cwd(), outputPath)}`);

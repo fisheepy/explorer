@@ -1,4 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none"><title>Humpback Whale</title>
+    <circle cx="128" cy="128" r="112" fill="#f59e0b"/>
+    <circle cx="128" cy="128" r="104" fill="#f59e0b" opacity="0.92"/>
+  
     <path d="M28 144c26-44 70-62 134-56 34 4 54 20 66 40-16 10-26 22-30 38-20 4-36 0-48-10-10 20-28 36-62 44-46 10-92-12-102-40-2-8 2-10 42-16Z" fill="#475569"/>
     <path d="M156 88c18-24 38-36 64-36-8 18-12 32-10 50" fill="#475569"/>
     <path d="M82 150c18 12 44 14 64 4" stroke="#cbd5e1" stroke-width="10" stroke-linecap="round"/>
